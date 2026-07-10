@@ -3,35 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Zásady ochrany soukromí — Zapisovačka</title>
 <meta name="description" content="Zásady ochrany soukromí webu zapisovacka.cz a aplikace Zapisovačka. Audio i přepisy se zpracovávají výhradně lokálně na vašem zařízení.">
 <link rel="canonical" href="https://zapisovacka.cz/privacy.html">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 20h28M18 32h28M18 44h16' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#ffffff; --text:#1c2333; --muted:#5a6478; --accent:#2563eb; --border:#dde3ef;
+  color-scheme:light dark;
+  --bg:#FAF9F3; --bg-alt:#F1EFE6; --card:#FFFFFF;
+  --ink:#1D2624; --muted:#5B6663; --line:#E3E0D3;
+  --accent:#0E7566; --accent-hover:#0A5C50;
+  --veil:rgba(250,249,243,.88);
 }
 @media (prefers-color-scheme: dark){
-  :root{ --bg:#10151f; --text:#e8ecf4; --muted:#9aa5bb; --accent:#5b8def; --border:#2a3346; }
+  :root{
+    --bg:#0E1413; --bg-alt:#131A19; --card:#171F1E;
+    --ink:#ECEAE1; --muted:#A0ABA5; --line:#28322F;
+    --accent:#3BC9B0; --accent-hover:#5CD8C3;
+    --veil:rgba(14,20,19,.85);
+  }
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
-.wrap{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 4rem}
-h1{font-size:1.9rem;letter-spacing:-.02em;margin-bottom:.4rem}
-.date{color:var(--muted);font-size:.9rem;margin-bottom:2rem}
-h2{font-size:1.3rem;margin:2.2rem 0 .7rem}
-h3{font-size:1.05rem;margin:1.4rem 0 .4rem}
-p,li{color:var(--text);font-size:.97rem;margin-bottom:.6rem}
-ul{padding-left:1.3rem;margin-bottom:.8rem}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+}
 a{color:var(--accent)}
-.back{display:inline-block;margin-bottom:2rem;color:var(--muted);text-decoration:none;font-size:.9rem}
-.back:hover{color:var(--accent)}
-hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.site-head{position:sticky;top:0;background:var(--veil);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.site-head .head-wrap{max-width:66rem;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;height:3.6rem}
+.brand{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.06rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.brand svg{width:26px;height:26px;flex:none;color:var(--accent)}
+.wrap{max-width:44rem;margin:0 auto;padding:3.2rem 1.25rem 4rem}
+.kicker{display:block;font-size:.78rem;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+h1{font-size:clamp(1.8rem,4.5vw,2.4rem);letter-spacing:-.025em;line-height:1.12;font-weight:800;margin-bottom:.5rem}
+.date{color:var(--muted);font-size:.9rem;margin-bottom:2.2rem}
+h2{font-size:1.32rem;letter-spacing:-.015em;margin:2.4rem 0 .8rem;font-weight:700}
+h3{font-size:1.05rem;letter-spacing:-.01em;margin:1.5rem 0 .45rem;font-weight:650}
+p,li{color:var(--ink);font-size:.97rem;margin-bottom:.6rem}
+ul{padding-left:1.3rem;margin-bottom:.8rem}
+code{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;font-size:.86em;background:var(--bg-alt);border:1px solid var(--line);border-radius:.3rem;padding:.05rem .35rem}
+hr{border:none;border-top:1px solid var(--line);margin:2.2rem 0}
+footer{border-top:1px solid var(--line);padding:1.8rem 1.25rem;text-align:center;font-size:.84rem;color:var(--muted)}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--ink)}
 </style>
 </head>
 <body>
-<div class="wrap">
-<a class="back" href="index.html">← zapisovacka.cz</a>
+
+<header class="site-head">
+  <div class="head-wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Zapisovačka
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+<span class="kicker">Zapisovačka</span>
 <h1>Zásady ochrany soukromí</h1>
 <p class="date">Účinnost od 10. července 2026 · Provozovatel: Ivan Tichý, kontakt: <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a></p>
 
@@ -50,7 +82,7 @@ hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
 
 <h3>Jaká data aplikace zpracovává a kde</h3>
 <ul>
-  <li>Aplikace nahrává zvuk vašeho počítače (systémový zvuk a mikrofon) a vytváří z něj přepisy a poznámky. <strong>Veškeré zpracování — nahrávání, přepis (model Whisper běžící lokálně) i ukládání — probíhá výhradně na vašem zařízení.</strong></li>
+  <li>Aplikace nahrává zvuk vašeho počítače (systémový zvuk a mikrofon) a vytváří z něj přepisy a poznámky. <strong>Veškeré zpracování — nahrávání, přepis (lokální model rozpoznávání řeči běžící přímo na vašem zařízení) i ukládání — probíhá výhradně na vašem zařízení.</strong></li>
   <li>Nahrávky (WAV), přepisy a poznámky (Markdown) i index poznámek se ukládají do složky aplikace na vašem disku (výchozí instalace: <code>%LOCALAPPDATA%\Programs\MeetingNotetaker</code>).</li>
   <li><strong>Žádné audio, přepisy, poznámky ani metadata o vašich schůzkách se nikam neodesílají.</strong> Aplikace neobsahuje telemetrii, analytiku ani crash reporting.</li>
 </ul>
@@ -77,6 +109,11 @@ hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
 
 <hr>
 <p>Změny těchto zásad zveřejníme na této stránce. Dotazy: <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a>.</p>
-</div>
+</main>
+
+<footer>
+  <p>© 2026 Zapisovačka · <a href="/">zapisovacka.cz</a> · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a></p>
+</footer>
+
 </body>
 </html>

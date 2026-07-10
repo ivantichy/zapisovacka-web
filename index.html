@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Zapisovačka — tichý zápis z meetingů. Bez bota, bez cloudu.</title>
 <meta name="description" content="Zapisovačka nahrává a přepisuje vaše meetingy česky, přímo na vašem PC. Žádný bot v hovoru, žádný cloud — audio i přepisy zůstávají jen u vás. Zdarma v betě.">
 <meta property="og:title" content="Zapisovačka — tichý zápis z meetingů">
@@ -11,151 +12,364 @@
 <meta property="og:url" content="https://zapisovacka.cz/">
 <meta property="og:locale" content="cs_CZ">
 <link rel="canonical" href="https://zapisovacka.cz/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 20h28M18 32h28M18 44h16' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#ffffff; --bg-alt:#f4f6fb; --text:#1c2333; --muted:#5a6478;
-  --accent:#2563eb; --accent-text:#ffffff; --border:#dde3ef;
-  --card:#ffffff; --shadow:0 1px 3px rgba(28,35,51,.08);
+  color-scheme:light dark;
+  --bg:#FAF9F3; --bg-alt:#F1EFE6; --card:#FFFFFF;
+  --ink:#1D2624; --muted:#5B6663; --line:#E3E0D3;
+  --accent:#0E7566; --accent-hover:#0A5C50; --on-accent:#FFFFFF;
+  --wave:#DCD8C8; --veil:rgba(250,249,243,.88);
+  --band-bg:#1D2624; --band-ink:#F3F1E8; --band-muted:#B9C2BD; --band-line:#37423F;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#10151f; --bg-alt:#161d2b; --text:#e8ecf4; --muted:#9aa5bb;
-    --accent:#5b8def; --accent-text:#0d1117; --border:#2a3346;
-    --card:#1a2231; --shadow:0 1px 3px rgba(0,0,0,.4);
+    --bg:#0E1413; --bg-alt:#131A19; --card:#171F1E;
+    --ink:#ECEAE1; --muted:#A0ABA5; --line:#28322F;
+    --accent:#3BC9B0; --accent-hover:#5CD8C3; --on-accent:#06201B;
+    --wave:#243230; --veil:rgba(14,20,19,.85);
+    --band-bg:#131A19; --band-ink:#ECEAE1; --band-muted:#A0ABA5; --band-line:#28322F;
   }
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  background:var(--bg);color:var(--text);line-height:1.6;
-  -webkit-font-smoothing:antialiased;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
-.wrap{max-width:960px;margin:0 auto;padding:0 1.25rem}
-header.hero{padding:4.5rem 0 3.5rem;text-align:center}
-.logo{display:inline-flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.15rem;margin-bottom:2.2rem}
-.logo svg{width:32px;height:32px;flex:none}
-h1{font-size:clamp(2rem,5.5vw,3.1rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:.9rem}
-.tagline{font-size:clamp(1.1rem,2.6vw,1.4rem);color:var(--muted);max-width:42rem;margin:0 auto 1.6rem}
-.sub{max-width:44rem;margin:0 auto 2.2rem;color:var(--muted);font-size:1.02rem}
-.beta{display:inline-block;background:var(--bg-alt);border:1px solid var(--border);border-radius:999px;padding:.15rem .8rem;font-size:.85rem;color:var(--muted);margin-bottom:1.2rem}
-.cta-row{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-block;border-radius:.6rem;padding:.85rem 1.5rem;font-weight:600;text-decoration:none;font-size:1rem;border:1px solid transparent}
-.btn-primary{background:var(--accent);color:var(--accent-text)}
-.btn-primary:hover{filter:brightness(1.1)}
-.btn-secondary{border-color:var(--border);color:var(--text);background:var(--card)}
-.btn-secondary:hover{border-color:var(--accent)}
-.cta-note{font-size:.85rem;color:var(--muted);margin-top:.9rem}
-section{padding:3.2rem 0}
-section.alt{background:var(--bg-alt)}
-h2{font-size:1.6rem;letter-spacing:-.01em;margin-bottom:1.6rem;text-align:center}
-.grid{display:grid;gap:1.1rem}
-@media(min-width:720px){.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}}
-.card{background:var(--card);border:1px solid var(--border);border-radius:.8rem;padding:1.3rem;box-shadow:var(--shadow)}
-.card h3{font-size:1.05rem;margin-bottom:.5rem}
+.wrap{max-width:66rem;margin:0 auto;padding:0 1.25rem}
+a{color:var(--accent)}
+a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+section[id],details[id]{scroll-margin-top:4.6rem}
+
+/* ---------- header ---------- */
+.site-head{position:sticky;top:0;z-index:10;background:var(--veil);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:3.6rem}
+.brand{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.06rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.brand svg{width:26px;height:26px;flex:none;color:var(--accent)}
+.site-nav{display:flex;align-items:center;gap:1.4rem}
+.site-nav a.nav-link{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500}
+.site-nav a.nav-link:hover{color:var(--ink)}
+@media(max-width:719px){.site-nav a.nav-link{display:none}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-block;border-radius:.65rem;padding:.85rem 1.6rem;font-weight:600;text-decoration:none;font-size:1rem;border:1px solid transparent;transition:background .15s,border-color .15s,color .15s}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-secondary{border-color:var(--line);color:var(--ink);background:transparent}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-small{padding:.5rem 1rem;font-size:.9rem;border-radius:.55rem}
+
+/* ---------- hero ---------- */
+.hero{padding:5rem 0 0}
+.hero-inner{max-width:46rem}
+.beta{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:999px;padding:.28rem .95rem;font-size:.84rem;color:var(--muted);margin-bottom:1.8rem;background:var(--card)}
+.beta::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--accent)}
+h1{font-size:clamp(2.5rem,6.5vw,4rem);line-height:1.06;letter-spacing:-.03em;font-weight:800;margin-bottom:1.3rem}
+h1 em{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-style:italic;font-weight:500;letter-spacing:-.015em;color:var(--accent)}
+.tagline{font-size:clamp(1.12rem,2.4vw,1.32rem);color:var(--ink);max-width:38rem;margin-bottom:1.1rem;font-weight:400}
+.sub{max-width:40rem;margin-bottom:2.4rem;color:var(--muted);font-size:1rem}
+.cta-row{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
+.cta-note{font-size:.85rem;color:var(--muted);margin-top:1rem}
+.hero-wave{display:block;width:100%;height:auto;margin-top:1.5rem;color:var(--accent)}
+.hero-wave .echo{color:var(--wave)}
+
+/* ---------- sections ---------- */
+section{padding:4.5rem 0}
+section.alt{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.kicker{display:block;font-size:.78rem;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;font-weight:750;margin-bottom:2.2rem;max-width:36rem}
+.grid{display:grid;gap:1rem}
+@media(min-width:640px){.grid-2up{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:720px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:980px){.grid-4{grid-template-columns:repeat(4,1fr)}}
+
+/* steps */
+.steps{list-style:none;counter-reset:step}
+.steps li{counter-increment:step;background:var(--card);border:1px solid var(--line);border-radius:.9rem;padding:1.6rem 1.5rem 1.5rem;transition:border-color .15s}
+.steps li:hover{border-color:var(--accent)}
+.steps li::before{content:"0" counter(step);display:block;font-size:2.4rem;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--accent);opacity:.28;margin-bottom:.9rem}
+.steps h3{font-size:1.08rem;letter-spacing:-.01em;margin-bottom:.5rem}
+.steps p{font-size:.94rem;color:var(--muted)}
+
+/* persona cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:.9rem;padding:1.5rem;transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card svg.mini-wave{display:block;width:30px;height:11px;color:var(--accent);opacity:.65;margin-bottom:.95rem}
+.card h3{font-size:1.06rem;letter-spacing:-.01em;margin-bottom:.45rem}
 .card p{font-size:.93rem;color:var(--muted)}
-.step-num{display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--accent);color:var(--accent-text);font-weight:700;margin-bottom:.7rem;font-size:.95rem}
-.faq{max-width:44rem;margin:0 auto}
-.faq details{border:1px solid var(--border);border-radius:.7rem;background:var(--card);margin-bottom:.7rem;padding:.9rem 1.1rem}
-.faq summary{font-weight:600;cursor:pointer}
-.faq p{margin-top:.6rem;color:var(--muted);font-size:.95rem}
-footer{padding:3rem 0 2.5rem;border-top:1px solid var(--border);text-align:center}
-footer .cta-row{margin:1.4rem 0}
-footer p{font-size:.85rem;color:var(--muted)}
-footer a{color:var(--muted)}
-.small-print{margin-top:1.2rem}
+
+/* proč lokálně — editorial columns */
+.reasons{display:grid;gap:2rem}
+@media(min-width:720px){.reasons{grid-template-columns:repeat(3,1fr);gap:2.5rem}}
+.reason{border-left:2px solid var(--accent);padding-left:1.15rem}
+.reason h3{font-size:1.1rem;letter-spacing:-.01em;margin-bottom:.55rem}
+.reason p{font-size:.95rem;color:var(--muted)}
+
+/* languages */
+.langs{margin-top:2.6rem;border:1px solid var(--line);border-radius:.9rem;background:var(--card);padding:0 1.4rem}
+.langs summary{font-weight:600;cursor:pointer;padding:1.05rem 2.2rem 1.05rem 0;list-style:none;position:relative;font-size:1rem}
+.langs summary::-webkit-details-marker{display:none}
+.langs summary::after{content:"+";position:absolute;right:.1rem;top:50%;transform:translateY(-50%);font-size:1.35rem;font-weight:400;color:var(--accent);transition:transform .15s}
+.langs[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.lang-note{color:var(--muted);font-size:.93rem;margin:.2rem 0 1.1rem;max-width:44rem}
+.lang-list{list-style:none;columns:2;column-gap:2rem;padding:0 0 1.4rem;font-size:.92rem;color:var(--muted)}
+@media(min-width:640px){.lang-list{columns:3}}
+@media(min-width:980px){.lang-list{columns:4}}
+.lang-list li{break-inside:avoid;padding:.12rem 0}
+.lang-list .lang-hl{color:var(--accent);font-weight:650}
+
+/* faq */
+.faq{max-width:44rem}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-of-type{border-top:1px solid var(--line)}
+.faq summary{font-weight:600;cursor:pointer;padding:1.05rem 2.2rem 1.05rem .1rem;list-style:none;position:relative;font-size:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:.35rem;top:50%;transform:translateY(-50%);font-size:1.35rem;font-weight:400;color:var(--accent);transition:transform .15s}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq details p{padding:0 .1rem 1.2rem;color:var(--muted);font-size:.95rem;max-width:40rem}
+
+/* ---------- footer band ---------- */
+.cta-band{background:var(--band-bg);color:var(--band-ink);padding:4.5rem 0;text-align:center}
+.cta-band svg.band-wave{display:block;width:170px;height:auto;margin:0 auto 1.6rem;color:var(--accent)}
+.cta-band h2{margin:0 auto 1.8rem;max-width:none}
+.cta-band .cta-row{justify-content:center}
+.cta-band .btn-secondary{border-color:var(--band-line);color:var(--band-ink)}
+.cta-band .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.cta-band .cta-note{color:var(--band-muted)}
+.small-print{background:var(--band-bg);color:var(--band-muted);text-align:center;padding:0 0 2.6rem;font-size:.84rem}
+.small-print a{color:var(--band-muted)}
+.small-print a:hover{color:var(--band-ink)}
+.small-print .rule{width:min(28rem,80%);margin:0 auto 2rem;border:none;border-top:1px solid var(--band-line)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important}
+}
 </style>
 </head>
 <body>
 
-<header class="hero">
+<header class="site-head">
   <div class="wrap">
-    <div class="logo">
-      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2563eb"/><path d="M18 20h28M18 32h28M18 44h16" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg>
+    <a class="brand" href="/">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Zapisovačka
-    </div>
-    <div><span class="beta">Beta — zdarma ke stažení</span></div>
-    <h1>Tichý zápis z&nbsp;meetingů.<br>Bez bota, bez cloudu.</h1>
-    <p class="tagline">Zapisovačka nahrává a přepisuje vaše meetingy česky — přímo na vašem počítači. Žádná data neopouštějí váš disk.</p>
-    <p class="sub">Funguje s Teams, Meetem i Zoomem, aniž by se do hovoru připojoval jakýkoli bot. Poslouží i místo diktafonu na osobním jednání. Zápis a úkoly z přepisu udělá AI — připravujeme AI zápisky přímo v aplikaci a přes MCP se Zapisovačka napojí na AI asistenty (Claude, ChatGPT a další).</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/MeetingNotetaker-Setup.exe">Stáhnout zdarma (beta)</a>
-      <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — zapsat do pořadníku</a>
-    </div>
-    <p class="cta-note">Windows 10/11 · instalátor ~110 MB · Pro verzi připravujeme, cena ~200–250 Kč/měsíc</p>
+    </a>
+    <nav class="site-nav" aria-label="Hlavní navigace">
+      <a class="nav-link" href="#jak">Jak to funguje</a>
+      <a class="nav-link" href="#prokoho">Pro koho</a>
+      <a class="nav-link" href="#lokalne">Proč lokálně</a>
+      <a class="nav-link" href="#faq">Časté dotazy</a>
+      <a class="btn btn-primary btn-small" href="/stahnout/">Získat betu</a>
+    </nav>
   </div>
 </header>
 
-<section class="alt" id="jak">
+<main>
+
+<section class="hero" aria-label="Úvod">
   <div class="wrap">
-    <h2>Jak to funguje</h2>
-    <div class="grid grid-3">
-      <div class="card">
-        <span class="step-num">1</span>
+    <div class="hero-inner">
+      <p class="beta">Beta — zdarma ke stažení</p>
+      <h1><em>Tichý zápis</em> z&nbsp;meetingů.<br>Bez bota, bez cloudu.</h1>
+      <p class="tagline">Zapisovačka nahrává a přepisuje vaše meetingy česky — přímo na vašem počítači. Žádná data neopouštějí váš disk.</p>
+      <p class="sub">Funguje s Microsoft Teams, Google Meet i Zoomem, aniž by se do hovoru připojoval jakýkoli bot. Poslouží i místo diktafonu na osobním jednání. Zápis a úkoly z přepisu udělá AI — připravujeme AI zápisky přímo v aplikaci a přes MCP se Zapisovačka napojí na AI asistenty (Claude, ChatGPT a další).</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/stahnout/">Získat betu</a>
+        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — pořadník</a>
+      </div>
+      <p class="cta-note">Windows 10/11 · instalátor ~110 MB · Pro verzi připravujeme, cena ~200–250 Kč/měsíc</p>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation">
+    <path class="echo" transform="translate(0,12)" d="M0 66.4L4 54.21L8 44.16L12 36.77L16 32.35L20 30.99L24 32.61L28 36.92L32 43.52L36 51.9L40 61.51L44 71.75L48 82.06L52 91.89L56 100.79L60 108.37L64 114.35L68 118.53L72 120.83L76 121.24L80 119.86L84 116.84L88 112.4L92 106.81L96 100.35L100 93.34L104 86.06L108 78.82L112 71.88L116 65.49L120 59.84L124 55.1L128 51.37L132 48.74L136 47.23L140 46.83L144 47.49L148 49.13L152 51.66L156 54.94L160 58.84L164 63.21L168 67.89L172 72.74L176 77.6L180 82.34L184 86.84L188 90.99L192 94.7L196 97.89L200 100.52L204 102.53L208 103.93L212 104.7L216 104.86L220 104.44L224 103.48L228 102.03L232 100.15L236 97.91L240 95.37L244 92.61L248 89.7L252 86.71L256 83.7L260 80.75L264 77.9L268 75.21L272 72.73L276 70.49L280 68.52L284 66.85L288 65.49L292 64.45L296 63.73L300 63.33L304 63.23L308 63.42L312 63.89L316 64.6L320 65.54L324 66.67L328 67.96L332 69.38L336 70.91L340 72.5L344 74.14L348 75.78L352 77.41L356 79.0L360 80.53L364 81.98L368 83.33L372 84.56L376 85.67L380 86.64L384 87.47L388 88.16L392 88.7L396 89.09L400 89.35L404 89.46L408 89.45L412 89.32L416 89.07L420 88.72L424 88.29L428 87.77L432 87.19L436 86.55L440 85.87L444 85.16L448 84.43L452 83.69L456 82.95L460 82.22L464 81.51L468 80.83L472 80.19L476 79.58L480 79.01L484 78.5L488 78.03L492 77.62L496 77.26L500 76.96L504 76.71L508 76.52L512 76.38L516 76.29L520 76.24L524 76.24L528 76.28L532 76.36L536 76.47L540 76.6L544 76.77L548 76.95L552 77.16L556 77.37L560 77.6L564 77.83L568 78.06L572 78.29L576 78.52L580 78.75L584 78.96L588 79.17L592 79.37L596 79.55L600 79.71L604 79.87L608 80.01L612 80.13L616 80.23L620 80.32L624 80.4L628 80.46L632 80.51L636 80.54L640 80.56L644 80.58L648 80.58L652 80.57L656 80.55L660 80.53L664 80.51L668 80.47L672 80.44L676 80.4L680 80.37L684 80.33L688 80.29L692 80.25L696 80.22L700 80.19L704 80.15L708 80.13L712 80.1L716 80.08L720 80.06L724 80.04L728 80.03L732 80.02L736 80.01L1200 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M0 66.4L4 54.21L8 44.16L12 36.77L16 32.35L20 30.99L24 32.61L28 36.92L32 43.52L36 51.9L40 61.51L44 71.75L48 82.06L52 91.89L56 100.79L60 108.37L64 114.35L68 118.53L72 120.83L76 121.24L80 119.86L84 116.84L88 112.4L92 106.81L96 100.35L100 93.34L104 86.06L108 78.82L112 71.88L116 65.49L120 59.84L124 55.1L128 51.37L132 48.74L136 47.23L140 46.83L144 47.49L148 49.13L152 51.66L156 54.94L160 58.84L164 63.21L168 67.89L172 72.74L176 77.6L180 82.34L184 86.84L188 90.99L192 94.7L196 97.89L200 100.52L204 102.53L208 103.93L212 104.7L216 104.86L220 104.44L224 103.48L228 102.03L232 100.15L236 97.91L240 95.37L244 92.61L248 89.7L252 86.71L256 83.7L260 80.75L264 77.9L268 75.21L272 72.73L276 70.49L280 68.52L284 66.85L288 65.49L292 64.45L296 63.73L300 63.33L304 63.23L308 63.42L312 63.89L316 64.6L320 65.54L324 66.67L328 67.96L332 69.38L336 70.91L340 72.5L344 74.14L348 75.78L352 77.41L356 79.0L360 80.53L364 81.98L368 83.33L372 84.56L376 85.67L380 86.64L384 87.47L388 88.16L392 88.7L396 89.09L400 89.35L404 89.46L408 89.45L412 89.32L416 89.07L420 88.72L424 88.29L428 87.77L432 87.19L436 86.55L440 85.87L444 85.16L448 84.43L452 83.69L456 82.95L460 82.22L464 81.51L468 80.83L472 80.19L476 79.58L480 79.01L484 78.5L488 78.03L492 77.62L496 77.26L500 76.96L504 76.71L508 76.52L512 76.38L516 76.29L520 76.24L524 76.24L528 76.28L532 76.36L536 76.47L540 76.6L544 76.77L548 76.95L552 77.16L556 77.37L560 77.6L564 77.83L568 78.06L572 78.29L576 78.52L580 78.75L584 78.96L588 79.17L592 79.37L596 79.55L600 79.71L604 79.87L608 80.01L612 80.13L616 80.23L620 80.32L624 80.4L628 80.46L632 80.51L636 80.54L640 80.56L644 80.58L648 80.58L652 80.57L656 80.55L660 80.53L664 80.51L668 80.47L672 80.44L676 80.4L680 80.37L684 80.33L688 80.29L692 80.25L696 80.22L700 80.19L704 80.15L708 80.13L712 80.1L716 80.08L720 80.06L724 80.04L728 80.03L732 80.02L736 80.01L1200 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+</section>
+
+<section class="alt" id="jak" aria-labelledby="jak-h">
+  <div class="wrap">
+    <span class="kicker">Jak to funguje</span>
+    <h2 id="jak-h">Tři kroky od hovoru k&nbsp;přepisu</h2>
+    <ol class="steps grid grid-3">
+      <li>
         <h3>Nainstalujte</h3>
         <p>Stáhněte instalátor a spusťte. Zapisovačka si při prvním startu stáhne model pro přepis a pak běží tiše v liště.</p>
-      </div>
-      <div class="card">
-        <span class="step-num">2</span>
+      </li>
+      <li>
         <h3>Zapisovačka pozná meeting a nahrává</h3>
         <p>Podle kalendáře a zvuku pozná, že začal hovor, a začne nahrávat. Do hovoru se nic nepřipojuje — protistrana žádného bota nevidí.</p>
-      </div>
-      <div class="card">
-        <span class="step-num">3</span>
+      </li>
+      <li>
         <h3>Přepis máte lokálně během chvíle</h3>
         <p>Po skončení hovoru se na vašem PC dokončí přesnější přepis. Zápis a úkoly z něj udělá AI — přes MCP v libovolném AI asistentovi (Claude, ChatGPT a další); v Pro verzi připravujeme AI zápisky přímo v aplikaci.</p>
-      </div>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
 
-<section id="prokoho">
+<section id="prokoho" aria-labelledby="prokoho-h">
   <div class="wrap">
-    <h2>Pro koho je Zapisovačka</h2>
-    <div class="grid grid-4">
-      <div class="card">
+    <span class="kicker">Pro koho</span>
+    <h2 id="prokoho-h">Pro každého, kdo vede důvěrné schůzky</h2>
+    <ul class="grid grid-2up grid-4" style="list-style:none">
+      <li class="card">
+        <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>Konzultanti</h3>
         <p>Zápisy z klientských hovorů bez toho, aby nahrávka klientových dat skončila na cizím serveru.</p>
-      </div>
-      <div class="card">
+      </li>
+      <li class="card">
+        <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>Advokáti</h3>
         <p>Záznam jednání s klientem podléhá důvěrnosti. U Zapisovačky neopustí váš počítač.</p>
-      </div>
-      <div class="card">
+      </li>
+      <li class="card">
+        <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>HR</h3>
         <p>Pohovory a citlivé rozhovory se zaměstnanci — přepis bez třetí strany, která by data viděla.</p>
-      </div>
-      <div class="card">
+      </li>
+      <li class="card">
+        <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>Státní správa</h3>
         <p>Jednání, která nesmí do veřejného cloudu. Vše se zpracovává na vašem zařízení.</p>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </section>
 
-<section class="alt" id="lokalne">
+<section class="alt" id="lokalne" aria-labelledby="lokalne-h">
   <div class="wrap">
-    <h2>Proč lokálně</h2>
-    <div class="grid grid-3">
-      <div class="card">
+    <span class="kicker">Proč lokálně</span>
+    <h2 id="lokalne-h">Soukromí není funkce navíc. Je to celý princip.</h2>
+    <div class="reasons">
+      <div class="reason">
         <h3>Bez bota v hovoru</h3>
         <p>Cloudové zapisovací nástroje obvykle posílají do hovoru bota, kterého všichni vidí. Zapisovačka nahrává zvuk vašeho počítače — v hovoru není nikdo navíc a nikdo nemusí nic schvalovat v cizí aplikaci.</p>
       </div>
-      <div class="card">
+      <div class="reason">
         <h3>Data zůstávají u vás</h3>
         <p>Cloudové nástroje ukládají nahrávky i přepisy na svých serverech. Zapisovačka všechno — audio, přepis i zápisky — ukládá jen na váš disk. Smažete složku, data neexistují.</p>
       </div>
-      <div class="card">
+      <div class="reason">
         <h3>Čeština na prvním místě</h3>
         <p>Zapisovačka je stavěná pro české meetingy. AI funkce velkých nástrojů češtinu často opomíjejí — např. vícejazyčné AI funkce Microsoft Teams (inteligentní rekapitulace) češtinu k polovině roku 2026 nepodporují.</p>
       </div>
     </div>
+    <details class="langs" id="jazyky">
+      <summary>Kompletní seznam podporovaných jazyků přepisu (100)</summary>
+      <p class="lang-note">Kvalita přepisu se mezi jazyky liší — nejlépe ladíme češtinu, u menších jazyků počítejte se slabšími výsledky.</p>
+      <ul class="lang-list">
+        <li class="lang-hl">čeština</li>
+        <li class="lang-hl">slovenština</li>
+        <li>afrikánština</li>
+        <li>albánština</li>
+        <li>amharština</li>
+        <li>angličtina</li>
+        <li>arabština</li>
+        <li>arménština</li>
+        <li>ásámština</li>
+        <li>ázerbájdžánština</li>
+        <li>barmština</li>
+        <li>baskičtina</li>
+        <li>baškirština</li>
+        <li>běloruština</li>
+        <li>bengálština</li>
+        <li>bosenština</li>
+        <li>bretonština</li>
+        <li>bulharština</li>
+        <li>čínština</li>
+        <li>dánština</li>
+        <li>estonština</li>
+        <li>faerština</li>
+        <li>finština</li>
+        <li>francouzština</li>
+        <li>galicijština</li>
+        <li>gruzínština</li>
+        <li>gudžarátština</li>
+        <li>haitská kreolština</li>
+        <li>hauština</li>
+        <li>havajština</li>
+        <li>hebrejština</li>
+        <li>hindština</li>
+        <li>chorvatština</li>
+        <li>indonéština</li>
+        <li>islandština</li>
+        <li>italština</li>
+        <li>japonština</li>
+        <li>javánština</li>
+        <li>jidiš</li>
+        <li>jorubština</li>
+        <li>kannadština</li>
+        <li>kantonština</li>
+        <li>katalánština</li>
+        <li>kazaština</li>
+        <li>khmerština</li>
+        <li>korejština</li>
+        <li>laoština</li>
+        <li>latina</li>
+        <li>lingalština</li>
+        <li>litevština</li>
+        <li>lotyština</li>
+        <li>lucemburština</li>
+        <li>maďarština</li>
+        <li>makedonština</li>
+        <li>malajálamština</li>
+        <li>malajština</li>
+        <li>malgaština</li>
+        <li>maltština</li>
+        <li>maorština</li>
+        <li>maráthština</li>
+        <li>mongolština</li>
+        <li>němčina</li>
+        <li>nepálština</li>
+        <li>nizozemština</li>
+        <li>norština</li>
+        <li>norština (nynorsk)</li>
+        <li>okcitánština</li>
+        <li>paňdžábština</li>
+        <li>paštština</li>
+        <li>perština</li>
+        <li>polština</li>
+        <li>portugalština</li>
+        <li>rumunština</li>
+        <li>ruština</li>
+        <li>řečtina</li>
+        <li>sanskrt</li>
+        <li>sindhština</li>
+        <li>sinhálština</li>
+        <li>slovinština</li>
+        <li>somálština</li>
+        <li>srbština</li>
+        <li>sundánština</li>
+        <li>svahilština</li>
+        <li>šonština</li>
+        <li>španělština</li>
+        <li>švédština</li>
+        <li>tádžičtina</li>
+        <li>tagalština</li>
+        <li>tamilština</li>
+        <li>tatarština</li>
+        <li>telugština</li>
+        <li>thajština</li>
+        <li>tibetština</li>
+        <li>turečtina</li>
+        <li>turkmenština</li>
+        <li>ukrajinština</li>
+        <li>urdština</li>
+        <li>uzbečtina</li>
+        <li>velština</li>
+        <li>vietnamština</li>
+      </ul>
+    </details>
   </div>
 </section>
 
-<section id="faq">
+<section id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <h2>Časté dotazy</h2>
+    <span class="kicker">Časté dotazy</span>
+    <h2 id="faq-h">Na co se ptáte nejčastěji</h2>
     <div class="faq">
       <details>
         <summary>Je to zadarmo?</summary>
@@ -167,7 +381,7 @@ footer a{color:var(--muted)}
       </details>
       <details>
         <summary>Jaké jazyky umí?</summary>
-        <p>Primárně češtinu, na kterou je celá aplikace laděná. Použitý model Whisper podporuje přes ~100 dalších jazyků, takže si poradí i s jinojazyčným hovorem.</p>
+        <p>Primárně češtinu, na kterou je celá aplikace laděná. Lokální rozpoznávání řeči si ale poradí i s jinojazyčným hovorem — celkem podporuje 100 jazyků včetně slovenštiny. Podívejte se na <a href="#jazyky">kompletní seznam podporovaných jazyků</a>.</p>
       </details>
       <details>
         <summary>Kde jsou má data?</summary>
@@ -179,26 +393,46 @@ footer a{color:var(--muted)}
       </details>
       <details>
         <summary>Windows při instalaci zobrazil varování. Proč?</summary>
-        <p>Beta instalátor zatím není podepsaný certifikátem vydavatele, takže Windows SmartScreen může zobrazit upozornění na neznámou aplikaci. Instalátor stahujte jen z této stránky, resp. z GitHubu <a href="https://github.com/ivantichy/zapisovacka-web/releases" rel="noopener">ivantichy/zapisovacka-web</a>.</p>
+        <p>Beta instalátor zatím není podepsaný certifikátem vydavatele, takže Windows SmartScreen může zobrazit upozornění na neznámou aplikaci. Instalátor stahujte jen z této stránky (zapisovacka.cz).</p>
       </details>
     </div>
   </div>
 </section>
 
+</main>
+
 <footer>
-  <div class="wrap">
-    <h2>Vyzkoušejte Zapisovačku</h2>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/MeetingNotetaker-Setup.exe">Stáhnout zdarma (beta)</a>
-      <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — zapsat do pořadníku</a>
+  <div class="cta-band">
+    <div class="wrap">
+      <svg class="band-wave" viewBox="0 0 160 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M0 10.75L2 8.23L4 6.66L6 6.11L8 6.5L10 7.66L12 9.35L14 11.34L16 13.37L18 15.25L20 16.81L22 17.97L24 18.67L26 18.92L28 18.77L30 18.27L32 17.53L34 16.63L36 15.65L38 14.69L40 13.81L42 13.05L44 12.45L46 12.02L48 11.77L50 11.68L52 11.73L54 11.9L56 12.16L58 12.47L60 12.81L62 13.16L64 13.49L66 13.79L68 14.04L70 14.24L72 14.39L74 14.49L76 14.54L78 14.55L80 14.53L82 14.49L84 14.43L86 14.36L88 14.28L90 14.22L92 14.15L94 14.1L96 14.06L98 14.03L100 14.01L160 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <h2>Vyzkoušejte Zapisovačku</h2>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/stahnout/">Získat betu</a>
+        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — pořadník</a>
+      </div>
+      <p class="cta-note">Pro verzi připravujeme, orientační cena ~200–250 Kč/měsíc.</p>
     </div>
-    <p>Pro verzi připravujeme, orientační cena ~200–250 Kč/měsíc.</p>
-    <p class="small-print">
-      © 2026 Zapisovačka · <a href="privacy.html">Ochrana soukromí a kontakt</a><br>
-      Tento web nepoužívá cookies ani analytiku a nenačítá nic z cizích serverů.
-    </p>
+  </div>
+  <div class="small-print">
+    <hr class="rule">
+    <p>© 2026 Zapisovačka · <a href="privacy.html">Ochrana soukromí a kontakt</a> · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a><br>
+    Tento web nepoužívá cookies ani analytiku a nenačítá nic z cizích serverů.</p>
   </div>
 </footer>
+
+<script>
+// Otevře seznam jazyků, když na něj vede odkaz (#jazyky) — žádné externí skripty.
+(function(){
+  function openLangs(){
+    if(location.hash === "#jazyky"){
+      var d = document.getElementById("jazyky");
+      if(d) d.open = true;
+    }
+  }
+  window.addEventListener("hashchange", openLangs);
+  openLangs();
+})();
+</script>
 
 </body>
 </html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Získat betu — Zapisovačka</title>
+<meta name="description" content="Beta verze Zapisovačky ke stažení. Lokální nahrávání a český přepis meetingů bez bota a bez cloudu.">
+<link rel="canonical" href="https://zapisovacka.cz/stahnout/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<!--
+  TODO (flip na v0.7.0): až bude nový veřejný build venku, odkomentuj meta refresh
+  níže a sekci "STAŽENÍ" v <body>, doplň novou URL assetu (Zapisovacka-Setup.exe)
+  a nový SHA-256 hash, a smaž dočasnou sekci "PŘIPRAVUJEME".
+  Tohle je JEDINÉ místo na celém webu s přímou URL instalátoru. Až se název assetu
+  změní, edituje se jen tento soubor a nic jiného.
+-->
+<!--
+<meta http-equiv="refresh" content="0;url=https://github.com/ivantichy/zapisovacka-web/releases/latest/download/Zapisovacka-Setup.exe">
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FAF9F3; --bg-alt:#F1EFE6; --card:#FFFFFF;
+  --ink:#1D2624; --muted:#5B6663; --line:#E3E0D3;
+  --accent:#0E7566; --accent-hover:#0A5C50; --on-accent:#FFFFFF;
+  --wave:#DCD8C8; --veil:rgba(250,249,243,.88);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0E1413; --bg-alt:#131A19; --card:#171F1E;
+    --ink:#ECEAE1; --muted:#A0ABA5; --line:#28322F;
+    --accent:#3BC9B0; --accent-hover:#5CD8C3; --on-accent:#06201B;
+    --wave:#243230; --veil:rgba(14,20,19,.85);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.65;
+  -webkit-font-smoothing:antialiased;min-height:100svh;display:flex;flex-direction:column;
+}
+.wrap{max-width:44rem;margin:0 auto;padding:0 1.25rem;width:100%}
+a{color:var(--accent)}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.site-head{position:sticky;top:0;background:var(--veil);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.site-head .wrap{display:flex;align-items:center;height:3.6rem}
+.brand{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.06rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.brand svg{width:26px;height:26px;flex:none;color:var(--accent)}
+main{flex:1}
+.panel{padding:4.5rem 0 3rem}
+.kicker{display:block;font-size:.78rem;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+h1{font-size:clamp(1.9rem,5vw,2.7rem);letter-spacing:-.025em;line-height:1.1;font-weight:800;margin-bottom:1rem}
+.lead{color:var(--muted);font-size:1.05rem;max-width:36rem;margin-bottom:2rem}
+.btn{display:inline-block;border-radius:.65rem;padding:.85rem 1.6rem;font-weight:600;text-decoration:none;font-size:1rem;border:1px solid transparent;transition:background .15s,border-color .15s,color .15s}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-secondary{border-color:var(--line);color:var(--ink);background:transparent}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.cta-row{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
+.cta-note{font-size:.85rem;color:var(--muted);margin-top:1rem}
+.divider-wave{display:block;width:170px;height:auto;color:var(--accent);margin:2.6rem 0 0}
+.steps{list-style:none;counter-reset:step;display:grid;gap:.9rem;margin-top:1.4rem}
+.steps li{counter-increment:step;background:var(--card);border:1px solid var(--line);border-radius:.9rem;padding:1.1rem 1.2rem 1.1rem 3.3rem;position:relative;font-size:.95rem;color:var(--muted)}
+.steps li::before{content:counter(step);position:absolute;left:1.1rem;top:1.05rem;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.steps li strong{color:var(--ink)}
+.hash{background:var(--bg-alt);border:1px solid var(--line);border-radius:.7rem;padding:.9rem 1.1rem;margin-top:1.6rem;font-size:.85rem;color:var(--muted)}
+.hash code{display:block;font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;font-size:.78rem;word-break:break-all;color:var(--ink);margin-top:.3rem}
+footer{border-top:1px solid var(--line);padding:1.8rem 0;text-align:center;font-size:.84rem;color:var(--muted)}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--ink)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Zapisovačka
+    </a>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== DOČASNÁ SEKCE "PŘIPRAVUJEME" (smazat při flipu na v0.7.0) ===== -->
+<section class="panel">
+  <div class="wrap">
+    <span class="kicker">Beta ke stažení</span>
+    <h1>Připravujeme nový beta build</h1>
+    <p class="lead">Nová beta Zapisovačky bude ke stažení během několika dní. Nechte nám e-mail v pořadníku a dáme vědět, jakmile bude venku.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Nechat e-mail v pořadníku</a>
+      <a class="btn btn-secondary" href="/">Zpět na hlavní stránku</a>
+    </div>
+    <p class="cta-note">Windows 10/11 · beta je zdarma</p>
+    <svg class="divider-wave" viewBox="0 0 160 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M0 10.75L2 8.23L4 6.66L6 6.11L8 6.5L10 7.66L12 9.35L14 11.34L16 13.37L18 15.25L20 16.81L22 17.97L24 18.67L26 18.92L28 18.77L30 18.27L32 17.53L34 16.63L36 15.65L38 14.69L40 13.81L42 13.05L44 12.45L46 12.02L48 11.77L50 11.68L52 11.73L54 11.9L56 12.16L58 12.47L60 12.81L62 13.16L64 13.49L66 13.79L68 14.04L70 14.24L72 14.39L74 14.49L76 14.54L78 14.55L80 14.53L82 14.49L84 14.43L86 14.36L88 14.28L90 14.22L92 14.15L94 14.1L96 14.06L98 14.03L100 14.01L160 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </div>
+</section>
+<!-- ===== KONEC DOČASNÉ SEKCE ===== -->
+
+<!--
+  ===== SEKCE "STAŽENÍ" (odkomentovat při flipu na v0.7.0) =====
+  TODO před odkomentováním:
+  1. Doplnit URL assetu (Zapisovacka-Setup.exe) do tlačítka níže I do meta refresh v <head>.
+  2. Doplnit SHA-256 nového instalátoru (z popisu release).
+  3. Zkontrolovat velikost instalátoru v poznámce.
+  4. Smazat dočasnou sekci "PŘIPRAVUJEME" výše.
+
+<section class="panel">
+  <div class="wrap">
+    <span class="kicker">Beta ke stažení</span>
+    <h1>Stahování začalo</h1>
+    <p class="lead">Stažení instalátoru se spustilo automaticky. Pokud ne, použijte tlačítko níže.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/Zapisovacka-Setup.exe">Stáhnout instalátor znovu</a>
+      <a class="btn btn-secondary" href="/">Zpět na hlavní stránku</a>
+    </div>
+    <p class="cta-note">Windows 10/11 · instalátor ~110 MB · beta je zdarma</p>
+
+    <h2 style="font-size:1.2rem;letter-spacing:-.01em;margin-top:2.8rem">Co dál</h2>
+    <ol class="steps">
+      <li><strong>Spusťte stažený soubor Zapisovacka-Setup.exe</strong> a projděte instalací.</li>
+      <li><strong>Windows SmartScreen může zobrazit varování</strong> „Neznámá aplikace" — beta instalátor zatím není podepsaný certifikátem vydavatele. Klikněte na <strong>Další informace → Přesto spustit</strong>.</li>
+      <li><strong>Zapisovačka se po instalaci usadí v liště.</strong> Při prvním spuštění si stáhne model pro přepis a pak už nahrává a přepisuje sama.</li>
+    </ol>
+
+    <div class="hash">
+      Kontrolní otisk instalátoru (SHA-256), verze vX.Y.Z:
+      <code>DOPLNIT_SHA256_NOVEHO_BUILDU</code>
+      Ověříte v PowerShellu příkazem <code>certutil -hashfile Zapisovacka-Setup.exe SHA256</code>
+    </div>
+  </div>
+</section>
+-->
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Zapisovačka · <a href="/privacy.html">Ochrana soukromí a kontakt</a> · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
