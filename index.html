@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zapisovačka — tichý zápis z meetingů. Bez bota, bez cloudu.</title>
+<meta name="description" content="Zapisovačka nahrává a přepisuje vaše meetingy česky, přímo na vašem PC. Žádný bot v hovoru, žádný cloud — audio i přepisy zůstávají jen u vás. Zdarma v betě.">
+<meta property="og:title" content="Zapisovačka — tichý zápis z meetingů">
+<meta property="og:description" content="Český přepis meetingů běží lokálně na vašem PC. Bez bota v hovoru, bez cloudu — vaše meetingy zůstávají u vás.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zapisovacka.cz/">
+<meta property="og:locale" content="cs_CZ">
+<link rel="canonical" href="https://zapisovacka.cz/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 20h28M18 32h28M18 44h16' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#ffffff; --bg-alt:#f4f6fb; --text:#1c2333; --muted:#5a6478;
+  --accent:#2563eb; --accent-text:#ffffff; --border:#dde3ef;
+  --card:#ffffff; --shadow:0 1px 3px rgba(28,35,51,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#10151f; --bg-alt:#161d2b; --text:#e8ecf4; --muted:#9aa5bb;
+    --accent:#5b8def; --accent-text:#0d1117; --border:#2a3346;
+    --card:#1a2231; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:960px;margin:0 auto;padding:0 1.25rem}
+header.hero{padding:4.5rem 0 3.5rem;text-align:center}
+.logo{display:inline-flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.15rem;margin-bottom:2.2rem}
+.logo svg{width:32px;height:32px;flex:none}
+h1{font-size:clamp(2rem,5.5vw,3.1rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:.9rem}
+.tagline{font-size:clamp(1.1rem,2.6vw,1.4rem);color:var(--muted);max-width:42rem;margin:0 auto 1.6rem}
+.sub{max-width:44rem;margin:0 auto 2.2rem;color:var(--muted);font-size:1.02rem}
+.beta{display:inline-block;background:var(--bg-alt);border:1px solid var(--border);border-radius:999px;padding:.15rem .8rem;font-size:.85rem;color:var(--muted);margin-bottom:1.2rem}
+.cta-row{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;border-radius:.6rem;padding:.85rem 1.5rem;font-weight:600;text-decoration:none;font-size:1rem;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:var(--accent-text)}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-secondary{border-color:var(--border);color:var(--text);background:var(--card)}
+.btn-secondary:hover{border-color:var(--accent)}
+.cta-note{font-size:.85rem;color:var(--muted);margin-top:.9rem}
+section{padding:3.2rem 0}
+section.alt{background:var(--bg-alt)}
+h2{font-size:1.6rem;letter-spacing:-.01em;margin-bottom:1.6rem;text-align:center}
+.grid{display:grid;gap:1.1rem}
+@media(min-width:720px){.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:.8rem;padding:1.3rem;box-shadow:var(--shadow)}
+.card h3{font-size:1.05rem;margin-bottom:.5rem}
+.card p{font-size:.93rem;color:var(--muted)}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--accent);color:var(--accent-text);font-weight:700;margin-bottom:.7rem;font-size:.95rem}
+.faq{max-width:44rem;margin:0 auto}
+.faq details{border:1px solid var(--border);border-radius:.7rem;background:var(--card);margin-bottom:.7rem;padding:.9rem 1.1rem}
+.faq summary{font-weight:600;cursor:pointer}
+.faq p{margin-top:.6rem;color:var(--muted);font-size:.95rem}
+footer{padding:3rem 0 2.5rem;border-top:1px solid var(--border);text-align:center}
+footer .cta-row{margin:1.4rem 0}
+footer p{font-size:.85rem;color:var(--muted)}
+footer a{color:var(--muted)}
+.small-print{margin-top:1.2rem}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="logo">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2563eb"/><path d="M18 20h28M18 32h28M18 44h16" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg>
+      Zapisovačka
+    </div>
+    <div><span class="beta">Beta — zdarma ke stažení</span></div>
+    <h1>Tichý zápis z&nbsp;meetingů.<br>Bez bota, bez cloudu.</h1>
+    <p class="tagline">Zapisovačka nahrává a přepisuje vaše meetingy česky — přímo na vašem počítači. Žádná data neopouštějí váš disk.</p>
+    <p class="sub">Funguje s Teams, Meetem i Zoomem, aniž by se do hovoru připojoval jakýkoli bot. Poslouží i místo diktafonu na osobním jednání. A přes MCP se napojí na Claude, který vám z přepisu udělá zápisky.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/MeetingNotetaker-Setup.exe">Stáhnout zdarma (beta)</a>
+      <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — zapsat do pořadníku</a>
+    </div>
+    <p class="cta-note">Windows 10/11 · instalátor ~110 MB · Pro verzi připravujeme, cena ~200–250 Kč/měsíc</p>
+  </div>
+</header>
+
+<section class="alt" id="jak">
+  <div class="wrap">
+    <h2>Jak to funguje</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="step-num">1</span>
+        <h3>Nainstalujte</h3>
+        <p>Stáhněte instalátor a spusťte. Zapisovačka si při prvním startu stáhne model pro přepis a pak běží tiše v liště.</p>
+      </div>
+      <div class="card">
+        <span class="step-num">2</span>
+        <h3>Zapisovačka pozná meeting a nahrává</h3>
+        <p>Podle kalendáře a zvuku pozná, že začal hovor, a začne nahrávat. Do hovoru se nic nepřipojuje — protistrana žádného bota nevidí.</p>
+      </div>
+      <div class="card">
+        <span class="step-num">3</span>
+        <h3>Přepis máte lokálně během chvíle</h3>
+        <p>Po skončení hovoru se na vašem PC dokončí přesnější přepis. Přes MCP ho otevřete v Claude a necháte si udělat zápis a úkoly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prokoho">
+  <div class="wrap">
+    <h2>Pro koho je Zapisovačka</h2>
+    <div class="grid grid-4">
+      <div class="card">
+        <h3>Konzultanti</h3>
+        <p>Zápisy z klientských hovorů bez toho, aby nahrávka klientových dat skončila na cizím serveru.</p>
+      </div>
+      <div class="card">
+        <h3>Advokáti</h3>
+        <p>Záznam jednání s klientem podléhá důvěrnosti. U Zapisovačky neopustí váš počítač.</p>
+      </div>
+      <div class="card">
+        <h3>HR</h3>
+        <p>Pohovory a citlivé rozhovory se zaměstnanci — přepis bez třetí strany, která by data viděla.</p>
+      </div>
+      <div class="card">
+        <h3>Státní správa</h3>
+        <p>Jednání, která nesmí do veřejného cloudu. Vše se zpracovává na vašem zařízení.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="lokalne">
+  <div class="wrap">
+    <h2>Proč lokálně</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Bez bota v hovoru</h3>
+        <p>Cloudové zapisovací nástroje obvykle posílají do hovoru bota, kterého všichni vidí. Zapisovačka nahrává zvuk vašeho počítače — v hovoru není nikdo navíc a nikdo nemusí nic schvalovat v cizí aplikaci.</p>
+      </div>
+      <div class="card">
+        <h3>Data zůstávají u vás</h3>
+        <p>Cloudové nástroje ukládají nahrávky i přepisy na svých serverech. Zapisovačka všechno — audio, přepis i zápisky — ukládá jen na váš disk. Smažete složku, data neexistují.</p>
+      </div>
+      <div class="card">
+        <h3>Čeština na prvním místě</h3>
+        <p>Zapisovačka je stavěná pro české meetingy. AI funkce velkých nástrojů češtinu často opomíjejí — např. vícejazyčné AI funkce Microsoft Teams (inteligentní rekapitulace) češtinu k polovině roku 2026 nepodporují.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Časté dotazy</h2>
+    <div class="faq">
+      <details>
+        <summary>Je to zadarmo?</summary>
+        <p>Beta verze je zdarma, včetně lokálního českého přepisu. Připravujeme placenou Pro verzi s AI zápisky (orientačně ~200–250 Kč/měsíc) — pokud vás zajímá, zapište se do pořadníku výše.</p>
+      </details>
+      <details>
+        <summary>Jaké jazyky umí?</summary>
+        <p>Primárně češtinu, na kterou je celá aplikace laděná. Použitý model Whisper podporuje přes ~100 dalších jazyků, takže si poradí i s jinojazyčným hovorem.</p>
+      </details>
+      <details>
+        <summary>Kde jsou má data?</summary>
+        <p>Jen na vašem disku. Nahrávky, přepisy i zápisky se ukládají do složky aplikace na vašem počítači a nikam se neodesílají. Podrobnosti najdete v <a href="privacy.html">zásadách ochrany soukromí</a>.</p>
+      </details>
+      <details>
+        <summary>Na jakých systémech běží?</summary>
+        <p>Zatím jen na Windows (10/11). Verze pro macOS zatím není.</p>
+      </details>
+      <details>
+        <summary>Windows při instalaci zobrazil varování. Proč?</summary>
+        <p>Beta instalátor zatím není podepsaný certifikátem vydavatele, takže Windows SmartScreen může zobrazit upozornění na neznámou aplikaci. Instalátor stahujte jen z této stránky, resp. z GitHubu <a href="https://github.com/ivantichy/zapisovacka-web/releases" rel="noopener">ivantichy/zapisovacka-web</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Vyzkoušejte Zapisovačku</h2>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/MeetingNotetaker-Setup.exe">Stáhnout zdarma (beta)</a>
+      <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — zapsat do pořadníku</a>
+    </div>
+    <p>Pro verzi připravujeme, orientační cena ~200–250 Kč/měsíc.</p>
+    <p class="small-print">
+      © 2026 Ivan Tichý · <a href="privacy.html">Ochrana soukromí</a> · <a href="mailto:ivan.tichy@gmail.com">ivan.tichy@gmail.com</a><br>
+      Tento web nepoužívá cookies ani analytiku a nenačítá nic z cizích serverů.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

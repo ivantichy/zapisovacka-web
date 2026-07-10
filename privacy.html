@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zásady ochrany soukromí — Zapisovačka</title>
+<meta name="description" content="Zásady ochrany soukromí webu zapisovacka.cz a aplikace Zapisovačka. Audio i přepisy se zpracovávají výhradně lokálně na vašem zařízení.">
+<link rel="canonical" href="https://zapisovacka.cz/privacy.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cpath d='M18 20h28M18 32h28M18 44h16' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#ffffff; --text:#1c2333; --muted:#5a6478; --accent:#2563eb; --border:#dde3ef;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#10151f; --text:#e8ecf4; --muted:#9aa5bb; --accent:#5b8def; --border:#2a3346; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 4rem}
+h1{font-size:1.9rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.date{color:var(--muted);font-size:.9rem;margin-bottom:2rem}
+h2{font-size:1.3rem;margin:2.2rem 0 .7rem}
+h3{font-size:1.05rem;margin:1.4rem 0 .4rem}
+p,li{color:var(--text);font-size:.97rem;margin-bottom:.6rem}
+ul{padding-left:1.3rem;margin-bottom:.8rem}
+a{color:var(--accent)}
+.back{display:inline-block;margin-bottom:2rem;color:var(--muted);text-decoration:none;font-size:.9rem}
+.back:hover{color:var(--accent)}
+hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← zapisovacka.cz</a>
+<h1>Zásady ochrany soukromí</h1>
+<p class="date">Účinnost od 10. července 2026 · Správce: Ivan Tichý, kontakt <a href="mailto:ivan.tichy@gmail.com">ivan.tichy@gmail.com</a></p>
+
+<p>Tyto zásady popisují, jak s daty nakládá (1) web zapisovacka.cz a (2) desktopová aplikace Zapisovačka, včetně jejího MCP serveru.</p>
+
+<h2>1. Web zapisovacka.cz</h2>
+<ul>
+  <li><strong>Nesbíráme nic.</strong> Web nepoužívá cookies, analytiku ani jiné sledovací technologie a nenačítá žádný obsah z cizích serverů.</li>
+  <li>Web je hostovaný na GitHub Pages (GitHub, Inc.). GitHub jako provozovatel hostingu může standardně zaznamenávat technické logy (např. IP adresy) — viz <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">zásady ochrany soukromí GitHubu</a>. My k žádným takovým logům nemáme přístup a žádné vlastní logy nevedeme.</li>
+  <li><strong>Pořadník na Pro verzi</strong> běží jako formulář Google Forms (Google Ireland Ltd. / Google LLC), tedy u třetí strany. Vyplněné údaje (e-mail, volitelně role/firma a očekávání od Pro verze) se ukládají v našem účtu Google. Google je zpracovává podle <a href="https://policies.google.com/privacy" rel="noopener">svých zásad</a>.</li>
+  <li>Údaje z pořadníku použijeme <strong>výhradně</strong> k tomu, abychom vás kontaktovali ohledně Pro verze Zapisovačky. Nepředáváme je nikomu dalšímu a nevyužíváme je k jinému marketingu.</li>
+  <li>Vymazání z pořadníku: napište na <a href="mailto:ivan.tichy@gmail.com">ivan.tichy@gmail.com</a> a záznam bez zbytečného odkladu smažeme. Údaje držíme nejdéle do spuštění Pro verze a navazující komunikace, poté je smažeme.</li>
+</ul>
+
+<h2>2. Aplikace Zapisovačka</h2>
+
+<h3>Jaká data aplikace zpracovává a kde</h3>
+<ul>
+  <li>Aplikace nahrává zvuk vašeho počítače (systémový zvuk a mikrofon) a vytváří z něj přepisy a poznámky. <strong>Veškeré zpracování — nahrávání, přepis (model Whisper běžící lokálně) i ukládání — probíhá výhradně na vašem zařízení.</strong></li>
+  <li>Nahrávky (WAV), přepisy a poznámky (Markdown) i index poznámek se ukládají do složky aplikace na vašem disku (výchozí instalace: <code>%LOCALAPPDATA%\Programs\MeetingNotetaker</code>).</li>
+  <li><strong>Žádné audio, přepisy, poznámky ani metadata o vašich schůzkách se nikam neodesílají.</strong> Aplikace neobsahuje telemetrii, analytiku ani crash reporting.</li>
+</ul>
+
+<h3>Kdy se aplikace připojuje k internetu</h3>
+<ul>
+  <li><strong>Stažení přepisovacího modelu</strong> z huggingface.co při prvním spuštění (a při změně modelu). Odesílá se pouze běžný HTTP požadavek na stažení souborů modelu.</li>
+  <li><strong>Volitelně čtení kalendáře:</strong> pokud v nastavení vyplníte tajnou iCal (ICS) adresu svého kalendáře, aplikace ji periodicky stahuje, aby poznala začátek schůzky. Obsah kalendáře se zpracovává jen lokálně.</li>
+  <li>Nic jiného — žádné jiné síťové přenosy aplikace neprovádí.</li>
+</ul>
+
+<h3>MCP server</h3>
+<ul>
+  <li>Součástí aplikace je MCP server, který zpřístupňuje vaše přepisy AI klientům (např. Claude Desktop). <strong>Běží výhradně lokálně na vašem počítači</strong> (komunikace přes stdio, žádný vzdálený server) a čte pouze lokální soubory poznámek a slovníku.</li>
+  <li>Data z přepisů opustí váš počítač jen tehdy, když je vy sami v AI klientovi pošlete do konverzace (např. necháte Claude shrnout přepis) — řídí se pak podmínkami vámi zvoleného AI klienta. Zapisovačka sama nic neodesílá.</li>
+</ul>
+
+<h3>Sdílení s třetími stranami, retence, výmaz</h3>
+<ul>
+  <li><strong>Sdílení:</strong> žádná data z aplikace nesdílíme s třetími stranami — nemáme k nim přístup, existují jen na vašem zařízení.</li>
+  <li><strong>Retence:</strong> data zůstávají na vašem disku, dokud je sami nesmažete. Žádná automatická expirace, žádné kopie u nás.</li>
+  <li><strong>Výmaz:</strong> všechna data odstraníte smazáním složky aplikace (a odinstalováním aplikace). Jednotlivé nahrávky či poznámky lze mazat i po souborech.</li>
+</ul>
+
+<hr>
+<p>Změny těchto zásad zveřejníme na této stránce. Dotazy: <a href="mailto:ivan.tichy@gmail.com">ivan.tichy@gmail.com</a>.</p>
+</div>
+</body>
+</html>
