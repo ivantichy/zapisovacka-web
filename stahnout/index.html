@@ -10,15 +10,11 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <!--
-  TODO (flip na v0.7.0): až bude nový veřejný build venku, odkomentuj meta refresh
-  níže a sekci "STAŽENÍ" v <body>, doplň novou URL assetu (Zapisovacka-Setup.exe)
-  a nový SHA-256 hash, a smaž dočasnou sekci "PŘIPRAVUJEME".
-  Tohle je JEDINÉ místo na celém webu s přímou URL instalátoru. Až se název assetu
-  změní, edituje se jen tento soubor a nic jiného.
+  ÚDRŽBA: tohle je JEDINÉ místo na celém webu s přímou URL instalátoru.
+  Při každém release stačí v tomto souboru aktualizovat SHA-256, verzi
+  a případně velikost; URL se mění jen při přejmenování assetu.
 -->
-<!--
 <meta http-equiv="refresh" content="0;url=https://github.com/ivantichy/zapisovacka-web/releases/latest/download/Zapisovacka-Setup.exe">
--->
 
 <style>
 :root{
@@ -87,30 +83,6 @@ footer a:hover{color:var(--ink)}
 
 <main>
 
-<!-- ===== DOČASNÁ SEKCE "PŘIPRAVUJEME" (smazat při flipu na v0.7.0) ===== -->
-<section class="panel">
-  <div class="wrap">
-    <span class="kicker">Beta ke stažení</span>
-    <h1>Připravujeme nový beta build</h1>
-    <p class="lead">Nová beta Zapisovačky bude ke stažení během několika dní. Nechte nám e-mail v pořadníku a dáme vědět, jakmile bude venku.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Nechat e-mail v pořadníku</a>
-      <a class="btn btn-secondary" href="/">Zpět na hlavní stránku</a>
-    </div>
-    <p class="cta-note">Windows 10/11 · beta je zdarma</p>
-    <svg class="divider-wave" viewBox="0 0 160 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M0 10.75L2 8.23L4 6.66L6 6.11L8 6.5L10 7.66L12 9.35L14 11.34L16 13.37L18 15.25L20 16.81L22 17.97L24 18.67L26 18.92L28 18.77L30 18.27L32 17.53L34 16.63L36 15.65L38 14.69L40 13.81L42 13.05L44 12.45L46 12.02L48 11.77L50 11.68L52 11.73L54 11.9L56 12.16L58 12.47L60 12.81L62 13.16L64 13.49L66 13.79L68 14.04L70 14.24L72 14.39L74 14.49L76 14.54L78 14.55L80 14.53L82 14.49L84 14.43L86 14.36L88 14.28L90 14.22L92 14.15L94 14.1L96 14.06L98 14.03L100 14.01L160 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-  </div>
-</section>
-<!-- ===== KONEC DOČASNÉ SEKCE ===== -->
-
-<!--
-  ===== SEKCE "STAŽENÍ" (odkomentovat při flipu na v0.7.0) =====
-  TODO před odkomentováním:
-  1. Doplnit URL assetu (Zapisovacka-Setup.exe) do tlačítka níže I do meta refresh v <head>.
-  2. Doplnit SHA-256 nového instalátoru (z popisu release).
-  3. Zkontrolovat velikost instalátoru v poznámce.
-  4. Smazat dočasnou sekci "PŘIPRAVUJEME" výše.
-
 <section class="panel">
   <div class="wrap">
     <span class="kicker">Beta ke stažení</span>
@@ -120,7 +92,7 @@ footer a:hover{color:var(--ink)}
       <a class="btn btn-primary" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/Zapisovacka-Setup.exe">Stáhnout instalátor znovu</a>
       <a class="btn btn-secondary" href="/">Zpět na hlavní stránku</a>
     </div>
-    <p class="cta-note">Windows 10/11 · instalátor ~110 MB · beta je zdarma</p>
+    <p class="cta-note">Windows 10/11 · instalátor ~97 MB · beta je zdarma · tento build má platnost do 9. 8. 2026, aplikace vás včas upozorní na novou verzi</p>
 
     <h2 style="font-size:1.2rem;letter-spacing:-.01em;margin-top:2.8rem">Co dál</h2>
     <ol class="steps">
@@ -130,13 +102,12 @@ footer a:hover{color:var(--ink)}
     </ol>
 
     <div class="hash">
-      Kontrolní otisk instalátoru (SHA-256), verze vX.Y.Z:
-      <code>DOPLNIT_SHA256_NOVEHO_BUILDU</code>
+      Kontrolní otisk instalátoru (SHA-256), verze v0.7.0:
+      <code>2e5bf6fc4dc78b5e9bee6b4a7c4830e164a4ea7184c10a6a9fc7029739afb8bb</code>
       Ověříte v PowerShellu příkazem <code>certutil -hashfile Zapisovacka-Setup.exe SHA256</code>
     </div>
   </div>
 </section>
--->
 
 </main>
 
