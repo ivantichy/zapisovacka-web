@@ -1,50 +1,22 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="hu">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Zapisovačka — důvěrný zápis z meetingů. Bez bota, bez cloudu.</title>
-<meta name="description" content="Zapisovačka nahrává a přepisuje vaše meetingy česky, přímo na vašem PC. Žádný bot v hovoru, žádný cloud — audio i přepisy zůstávají jen u vás. Zdarma v betě.">
-<meta property="og:title" content="Zapisovačka — důvěrný zápis z meetingů">
-<meta property="og:description" content="Český přepis meetingů běží lokálně na vašem PC. Bez bota v hovoru, bez cloudu — vaše meetingy zůstávají u vás.">
+<title>Zapisovačka — bizalmas jegyzőkönyv a meetingekről. Bot és felhő nélkül.</title>
+<meta name="description" content="A Zapisovačka a saját gépén rögzíti és írja le a meetingjeit. Nincs bot a hívásban, nincs felhő — a hanganyag és a leiratok csak Önnél maradnak. A béta ingyenes.">
+<meta property="og:title" content="Zapisovačka — bizalmas jegyzőkönyv a meetingekről">
+<meta property="og:description" content="A meetingek leírása helyben, az Ön gépén fut. Bot nélkül a hívásban, felhő nélkül — a meetingjei Önnél maradnak.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://zapisovacka.cz/">
-<meta property="og:locale" content="cs_CZ">
-<link rel="canonical" href="https://zapisovacka.cz/">
+<meta property="og:url" content="https://zapisovacka.cz/hu/">
+<meta property="og:locale" content="hu_HU">
+<link rel="canonical" href="https://zapisovacka.cz/hu/">
 <link rel="alternate" hreflang="cs" href="https://zapisovacka.cz/">
 <link rel="alternate" hreflang="sk" href="https://zapisovacka.cz/sk/">
 <link rel="alternate" hreflang="uk" href="https://zapisovacka.cz/ua/">
 <link rel="alternate" hreflang="hu" href="https://zapisovacka.cz/hu/">
-<link rel="alternate" hreflang="x-default" href="https://zapisovacka.cz/">
-<script>
-// Jazyková autodetekce — POUZE na kořenové stránce (mutace nikdy nepřesměrovávají,
-// takže nehrozí smyčka). Uložená volba v localStorage („zapis_lang") má přednost;
-// bez ní se jednou rozhodne podle navigator.languages a výsledek se uloží.
-// Žádné cookies.
-(function(){
-  var PATH = {sk:"/sk/", ua:"/ua/", hu:"/hu/"};
-  var pref = null;
-  try{ pref = localStorage.getItem("zapis_lang"); }catch(e){}
-  if(pref === "cs") return;
-  if(!PATH[pref]){
-    pref = null;
-    var langs = navigator.languages || [navigator.language || ""];
-    for(var i = 0; i < langs.length && !pref; i++){
-      var l = String(langs[i]).slice(0,2).toLowerCase();
-      if(l === "cs") pref = "cs";
-      else if(l === "sk") pref = "sk";
-      else if(l === "uk") pref = "ua";
-      else if(l === "hu") pref = "hu";
-    }
-    if(!pref) return;
-    try{ localStorage.setItem("zapis_lang", pref); }catch(e){}
-    if(pref === "cs") return;
-  }
-  location.replace(PATH[pref]);
-})();
-</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="x-default" href="https://zapisovacka.cz/"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{
   color-scheme:light dark;
@@ -190,35 +162,35 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/">
+    <a class="brand" href="/hu/">
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Zapisovačka
     </a>
-    <nav class="site-nav" aria-label="Hlavní navigace">
-      <a class="nav-link" href="#jak">Jak to funguje</a>
-      <a class="nav-link" href="#prokoho">Pro koho</a>
-      <a class="nav-link" href="#lokalne">Proč lokálně</a>
-      <a class="nav-link" href="#faq">Časté dotazy</a>
-      <nav class="lang-switch" aria-label="Jazyk webu"><a href="/" data-setlang="cs" hreflang="cs" aria-current="page">CZ</a><span>·</span><a href="/sk/" data-setlang="sk" hreflang="sk" lang="sk">SK</a><span>·</span><a href="/ua/" data-setlang="ua" hreflang="uk" lang="uk">UA</a><span>·</span><a href="/hu/" data-setlang="hu" hreflang="hu" lang="hu">HU</a></nav>
-      <a class="btn btn-primary btn-small" href="/stahnout/">Získat betu</a>
+    <nav class="site-nav" aria-label="Fő navigáció">
+      <a class="nav-link" href="#jak">Hogyan működik</a>
+      <a class="nav-link" href="#prokoho">Kinek való</a>
+      <a class="nav-link" href="#lokalne">Miért helyben</a>
+      <a class="nav-link" href="#faq">GYIK</a>
+      <nav class="lang-switch" aria-label="Az oldal nyelve"><a href="/" data-setlang="cs" hreflang="cs" lang="cs">CZ</a><span>·</span><a href="/sk/" data-setlang="sk" hreflang="sk" lang="sk">SK</a><span>·</span><a href="/ua/" data-setlang="ua" hreflang="uk" lang="uk">UA</a><span>·</span><a href="/hu/" data-setlang="hu" hreflang="hu" aria-current="page">HU</a></nav>
+      <a class="btn btn-primary btn-small" href="/stahnout/">Béta letöltése</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-<section class="hero" aria-label="Úvod">
+<section class="hero" aria-label="Bevezető">
   <div class="wrap">
     <div class="hero-inner">
-      <p class="beta">Beta — zdarma ke stažení</p>
-      <h1><em>Důvěrný zápis</em> z&nbsp;meetingů.<br>Bez bota, bez cloudu.</h1>
-      <p class="tagline">Zapisovačka nahrává a přepisuje vaše meetingy česky — přímo na vašem počítači. Hotový přepis máte chvíli po hovoru a žádná data neopouštějí váš disk.</p>
-      <p class="sub">Funguje s Microsoft Teams, Google Meet i Zoomem, aniž by se do hovoru připojoval jakýkoli bot. Poslouží i místo diktafonu na osobním jednání. Zápis a úkoly z přepisu udělá AI — připravujeme AI zápisky přímo v aplikaci a už dnes Zapisovačku propojíte s AI asistenty (Claude, ChatGPT a další).</p>
+      <p class="beta">Béta — ingyenesen letölthető</p>
+      <h1><em>Bizalmas jegyzőkönyv</em> a&nbsp;meetingekről.<br>Bot és felhő nélkül.</h1>
+      <p class="tagline">A Zapisovačka a saját számítógépén rögzíti és írja le a meetingjeit. A leirat röviddel a hívás után elkészül, és semmilyen adat nem hagyja el a gépét.</p>
+      <p class="sub"><strong>Az alkalmazás felülete egyelőre csak cseh nyelvű</strong> — a beszédfelismerés magyarul is működik, de a magyar leiratok minősége egyelőre elmarad a csehekétől. A Zapisovačka működik Microsoft Teams, Google Meet és Zoom mellett, anélkül, hogy bármilyen bot csatlakozna a híváshoz; személyes megbeszélésen diktafon helyett is jó szolgálatot tesz. Az összefoglalót és a teendőket AI készíti a leiratból — az alkalmazásba épített AI-jegyzeteken dolgozunk, és a Zapisovačka már ma összeköthető AI-asszisztensekkel (Claude, ChatGPT és mások).</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/stahnout/">Získat betu</a>
-        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — pořadník</a>
+        <a class="btn btn-primary" href="/stahnout/">Béta letöltése</a>
+        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verzió AI-jegyzetekkel — várólista</a>
       </div>
-      <p class="cta-note">Windows 10/11 · instalátor ~110 MB · Pro verzi připravujeme, cena ~200–250 Kč/měsíc</p>
+      <p class="cta-note">Windows 10/11 · a telepítő ~110 MB · a Pro verzió készül, ára ~200–250 cseh korona (Kč)/hó · a várólista űrlapja cseh nyelvű</p>
     </div>
   </div>
   <svg class="hero-wave" viewBox="0 0 1200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation">
@@ -229,20 +201,20 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section class="alt" id="jak" aria-labelledby="jak-h">
   <div class="wrap">
-    <span class="kicker">Jak to funguje</span>
-    <h2 id="jak-h">Tři kroky od hovoru k&nbsp;přepisu</h2>
+    <span class="kicker">Hogyan működik</span>
+    <h2 id="jak-h">Három lépés a hívástól a&nbsp;leiratig</h2>
     <ol class="steps grid grid-3">
       <li>
-        <h3>Nainstalujte</h3>
-        <p>Stáhněte instalátor a spusťte. Zapisovačka si při prvním startu stáhne model pro přepis a pak běží tiše v liště.</p>
+        <h3>Telepítse</h3>
+        <p>Töltse le a telepítőt, és indítsa el. A Zapisovačka az első indításkor letölti a leíráshoz használt modellt, majd csendben fut a tálcán.</p>
       </li>
       <li>
-        <h3>Zapisovačka pozná meeting a nahrává</h3>
-        <p>Podle kalendáře a zvuku pozná, že začal hovor, a začne nahrávat. Do hovoru se nic nepřipojuje — protistrana žádného bota nevidí.</p>
+        <h3>A Zapisovačka felismeri a meetinget, és rögzít</h3>
+        <p>A naptár és a hang alapján észleli, hogy hívás kezdődött, és elindítja a felvételt. A híváshoz semmi sem csatlakozik — a másik fél semmilyen botot nem lát.</p>
       </li>
       <li>
-        <h3>Přepis máte lokálně během chvíle</h3>
-        <p>Po skončení hovoru se na vašem PC dokončí přesnější přepis. Zápis a úkoly z něj udělá AI — v AI asistentovi (Claude, ChatGPT a další), se kterým Zapisovačku propojíte; v Pro verzi připravujeme AI zápisky přímo v aplikaci.</p>
+        <h3>A leirat helyben, rövid időn belül elkészül</h3>
+        <p>A hívás végén a gépén elkészül a pontosabb leirat. Az összefoglalót és a teendőket AI készíti — abban az AI-asszisztensben (Claude, ChatGPT és mások), amellyel a Zapisovačkát összeköti; a Pro verzióba épített AI-jegyzeteken dolgozunk.</p>
       </li>
     </ol>
   </div>
@@ -250,28 +222,28 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section id="prokoho" aria-labelledby="prokoho-h">
   <div class="wrap">
-    <span class="kicker">Pro koho</span>
-    <h2 id="prokoho-h">Pro každého, kdo vede důvěrné schůzky</h2>
+    <span class="kicker">Kinek való</span>
+    <h2 id="prokoho-h">Mindenkinek, aki bizalmas megbeszéléseket folytat</h2>
     <ul class="grid grid-2up grid-4" style="list-style:none">
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>Konzultanti</h3>
-        <p>Zápisy z klientských hovorů bez toho, aby nahrávka klientových dat skončila na cizím serveru.</p>
+        <h3>Tanácsadók</h3>
+        <p>Jegyzetek az ügyfélhívásokról anélkül, hogy az ügyfél adatait tartalmazó felvétel idegen szerverre kerülne.</p>
       </li>
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>Advokáti</h3>
-        <p>Záznam jednání s klientem podléhá důvěrnosti. U Zapisovačky neopustí váš počítač.</p>
+        <h3>Ügyvédek</h3>
+        <p>Az ügyféllel folytatott megbeszélés felvétele titoktartás alá esik. A Zapisovačkával nem hagyja el a számítógépét.</p>
       </li>
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>HR</h3>
-        <p>Pohovory a citlivé rozhovory se zaměstnanci — přepis bez třetí strany, která by data viděla.</p>
+        <p>Interjúk és érzékeny beszélgetések a munkatársakkal — leirat harmadik fél nélkül, amely láthatná az adatokat.</p>
       </li>
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>Státní správa</h3>
-        <p>Jednání, která nesmí do veřejného cloudu. Vše se zpracovává na vašem zařízení.</p>
+        <h3>Közszféra</h3>
+        <p>Egyeztetések, amelyek nem kerülhetnek nyilvános felhőbe. Minden feldolgozás az Ön eszközén történik.</p>
       </li>
     </ul>
   </div>
@@ -279,126 +251,126 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section class="alt" id="lokalne" aria-labelledby="lokalne-h">
   <div class="wrap">
-    <span class="kicker">Proč lokálně</span>
-    <h2 id="lokalne-h">Soukromí není funkce navíc. Je to celý princip.</h2>
+    <span class="kicker">Miért helyben</span>
+    <h2 id="lokalne-h">A magánszféra nem extra funkció. Ez maga az alapelv.</h2>
     <div class="reasons">
       <div class="reason">
-        <h3>Bez bota v hovoru</h3>
-        <p>Cloudové zapisovací nástroje obvykle posílají do hovoru bota, kterého všichni vidí. Zapisovačka nahrává zvuk vašeho počítače — v hovoru není nikdo navíc a nikdo nemusí nic schvalovat v cizí aplikaci.</p>
+        <h3>Bot nélkül a hívásban</h3>
+        <p>A felhőalapú jegyzetelő eszközök általában botot küldenek a hívásba, amelyet mindenki lát. A Zapisovačka a számítógép hangját rögzíti — a hívásban nincs jelen senki más, és senkinek sem kell semmit jóváhagynia egy idegen alkalmazásban.</p>
       </div>
       <div class="reason">
-        <h3>Data zůstávají u vás</h3>
-        <p>Cloudové nástroje ukládají nahrávky i přepisy na svých serverech. Zapisovačka všechno — audio, přepis i zápisky — ukládá jen na váš disk. Smažete složku, data neexistují.</p>
+        <h3>Az adatok Önnél maradnak</h3>
+        <p>A felhős eszközök a felvételeket és a leiratokat a saját szervereiken tárolják. A Zapisovačka mindent — hangot, leiratot, jegyzeteket — csak az Ön lemezére ment. Ha törli a mappát, az adatok nem léteznek többé.</p>
       </div>
       <div class="reason">
-        <h3>Čeština na prvním místě</h3>
-        <p>Zapisovačka je stavěná pro české meetingy. AI funkce velkých nástrojů češtinu často opomíjejí — např. vícejazyčné AI funkce Microsoft Teams (inteligentní rekapitulace) češtinu k polovině roku 2026 nepodporují.</p>
+        <h3>Cseh meetingekre hangolva — őszintén a magyarról</h3>
+        <p>A Zapisovačkát elsősorban cseh meetingekre hangoljuk. A helyi beszédfelismerés magyarul is működik, de a magyar leiratok minősége egyelőre elmarad a csehekétől — érdemes a saját meetingjein kipróbálni. Az alkalmazás felülete cseh nyelvű.</p>
       </div>
     </div>
     <details class="langs" id="jazyky">
-      <summary>Kompletní seznam podporovaných jazyků přepisu (100)</summary>
-      <p class="lang-note">Kvalita přepisu se mezi jazyky liší — nejlépe ladíme češtinu, u menších jazyků počítejte se slabšími výsledky.</p>
+      <summary>A támogatott leírási nyelvek teljes listája (100)</summary>
+      <p class="lang-note">A leirat minősége nyelvenként eltér — legjobban a csehet hangoljuk; a magyar támogatott, de gyengébb eredményekre számítson.</p>
       <ul class="lang-list">
-        <li class="lang-hl">čeština</li>
-        <li class="lang-hl">slovenština</li>
-        <li>afrikánština</li>
-        <li>albánština</li>
-        <li>amharština</li>
-        <li>angličtina</li>
-        <li>arabština</li>
-        <li>arménština</li>
-        <li>ásámština</li>
-        <li>ázerbájdžánština</li>
-        <li>barmština</li>
-        <li>baskičtina</li>
-        <li>baškirština</li>
-        <li>běloruština</li>
-        <li>bengálština</li>
-        <li>bosenština</li>
-        <li>bretonština</li>
-        <li>bulharština</li>
-        <li>čínština</li>
-        <li>dánština</li>
-        <li>estonština</li>
-        <li>faerština</li>
-        <li>finština</li>
-        <li>francouzština</li>
-        <li>galicijština</li>
-        <li>gruzínština</li>
-        <li>gudžarátština</li>
-        <li>haitská kreolština</li>
-        <li>hauština</li>
-        <li>havajština</li>
-        <li>hebrejština</li>
-        <li>hindština</li>
-        <li>chorvatština</li>
-        <li>indonéština</li>
-        <li>islandština</li>
-        <li>italština</li>
-        <li>japonština</li>
-        <li>javánština</li>
-        <li>jidiš</li>
-        <li>jorubština</li>
-        <li>kannadština</li>
-        <li>kantonština</li>
-        <li>katalánština</li>
-        <li>kazaština</li>
-        <li>khmerština</li>
-        <li>korejština</li>
-        <li>laoština</li>
-        <li>latina</li>
-        <li>lingalština</li>
-        <li>litevština</li>
-        <li>lotyština</li>
-        <li>lucemburština</li>
-        <li>maďarština</li>
-        <li>makedonština</li>
-        <li>malajálamština</li>
-        <li>malajština</li>
-        <li>malgaština</li>
-        <li>maltština</li>
-        <li>maorština</li>
-        <li>maráthština</li>
-        <li>mongolština</li>
-        <li>němčina</li>
-        <li>nepálština</li>
-        <li>nizozemština</li>
-        <li>norština</li>
-        <li>norština (nynorsk)</li>
-        <li>okcitánština</li>
-        <li>paňdžábština</li>
-        <li>paštština</li>
-        <li>perština</li>
-        <li>polština</li>
-        <li>portugalština</li>
-        <li>rumunština</li>
-        <li>ruština</li>
-        <li>řečtina</li>
-        <li>sanskrt</li>
-        <li>sindhština</li>
-        <li>sinhálština</li>
-        <li>slovinština</li>
-        <li>somálština</li>
-        <li>srbština</li>
-        <li>sundánština</li>
-        <li>svahilština</li>
-        <li>šonština</li>
-        <li>španělština</li>
-        <li>švédština</li>
-        <li>tádžičtina</li>
-        <li>tagalština</li>
-        <li>tamilština</li>
-        <li>tatarština</li>
-        <li>telugština</li>
-        <li>thajština</li>
-        <li>tibetština</li>
-        <li>turečtina</li>
-        <li>turkmenština</li>
-        <li>ukrajinština</li>
-        <li>urdština</li>
-        <li>uzbečtina</li>
-        <li>velština</li>
-        <li>vietnamština</li>
+        <li class="lang-hl">magyar</li>
+        <li class="lang-hl">cseh</li>
+        <li>afrikaans</li>
+        <li>albán</li>
+        <li>amhara</li>
+        <li>angol</li>
+        <li>arab</li>
+        <li>asszámi</li>
+        <li>azerbajdzsáni</li>
+        <li>baskír</li>
+        <li>baszk</li>
+        <li>belarusz</li>
+        <li>bengáli</li>
+        <li>birmán</li>
+        <li>bolgár</li>
+        <li>bosnyák</li>
+        <li>breton</li>
+        <li>dán</li>
+        <li>észt</li>
+        <li>feröeri</li>
+        <li>finn</li>
+        <li>francia</li>
+        <li>galiciai</li>
+        <li>görög</li>
+        <li>grúz</li>
+        <li>gudzsaráti</li>
+        <li>haiti kreol</li>
+        <li>hausza</li>
+        <li>hawaii</li>
+        <li>héber</li>
+        <li>hindi</li>
+        <li>holland</li>
+        <li>horvát</li>
+        <li>indonéz</li>
+        <li>izlandi</li>
+        <li>japán</li>
+        <li>jávai</li>
+        <li>jiddis</li>
+        <li>joruba</li>
+        <li>kannada</li>
+        <li>kantoni</li>
+        <li>katalán</li>
+        <li>kazah</li>
+        <li>khmer</li>
+        <li>kínai</li>
+        <li>koreai</li>
+        <li>lao</li>
+        <li>latin</li>
+        <li>lengyel</li>
+        <li>lett</li>
+        <li>lingala</li>
+        <li>litván</li>
+        <li>luxemburgi</li>
+        <li>macedón</li>
+        <li>malajálam</li>
+        <li>maláj</li>
+        <li>malgas</li>
+        <li>máltai</li>
+        <li>maori</li>
+        <li>maráthi</li>
+        <li>mongol</li>
+        <li>német</li>
+        <li>nepáli</li>
+        <li>norvég</li>
+        <li>norvég (nynorsk)</li>
+        <li>okszitán</li>
+        <li>olasz</li>
+        <li>orosz</li>
+        <li>örmény</li>
+        <li>pandzsábi</li>
+        <li>pastu</li>
+        <li>perzsa</li>
+        <li>portugál</li>
+        <li>román</li>
+        <li>sona</li>
+        <li>spanyol</li>
+        <li>svéd</li>
+        <li>szanszkrit</li>
+        <li>szerb</li>
+        <li>szindhi</li>
+        <li>szingaléz</li>
+        <li>szlovák</li>
+        <li>szlovén</li>
+        <li>szomáli</li>
+        <li>szuahéli</li>
+        <li>szundanéz</li>
+        <li>tadzsik</li>
+        <li>tagalog</li>
+        <li>tamil</li>
+        <li>tatár</li>
+        <li>telugu</li>
+        <li>thai</li>
+        <li>tibeti</li>
+        <li>török</li>
+        <li>türkmén</li>
+        <li>ukrán</li>
+        <li>urdu</li>
+        <li>üzbég</li>
+        <li>vietnámi</li>
+        <li>walesi</li>
       </ul>
     </details>
   </div>
@@ -406,32 +378,36 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <span class="kicker">Časté dotazy</span>
-    <h2 id="faq-h">Na co se ptáte nejčastěji</h2>
+    <span class="kicker">GYIK</span>
+    <h2 id="faq-h">A leggyakoribb kérdések</h2>
     <div class="faq">
       <details>
-        <summary>Je to zadarmo?</summary>
-        <p>Beta verze je zdarma, včetně neomezeného lokálního českého přepisu. Do free verze připravujeme i 1 AI zápis měsíčně zdarma na vyzkoušení. Placená Pro verze (orientačně ~200–250 Kč/měsíc) přidá AI zápisky přímo v aplikaci s férovým měsíčním limitem — pokud vás zajímá, zapište se do pořadníku výše.</p>
+        <summary>Milyen nyelvű az alkalmazás?</summary>
+        <p>A felület egyelőre csak csehül érhető el. A beszédfelismerés magyarul is működik, de a magyar leiratok minősége egyelőre elmarad a cseh nyelvűekétől — érdemes a saját meetingjein kipróbálni, mielőtt élesben számítana rá.</p>
       </details>
       <details>
-        <summary>Potřebuji k AI zápiskům Claude nebo ChatGPT?</summary>
-        <p>Ne. Lokální přepis funguje úplně bez AI asistenta. V připravované Pro verzi budou AI zápisky přímo v aplikaci — bez vlastního účtu u Claude či ChatGPT. Kdo AI asistenta (Claude, ChatGPT a další) používá, může si ho už dnes se Zapisovačkou propojit — asistent pak má vaše přepisy po ruce (technicky jde o propojení přes MCP).</p>
+        <summary>Ingyenes?</summary>
+        <p>A béta ingyenes, korlátlan helyi leírással együtt. Az ingyenes verzióba havi 1 ingyenes AI-összefoglalót is tervezünk kipróbálásra. A fizetős Pro verzió (irányár ~200–250 cseh korona/hó) AI-jegyzeteket ad közvetlenül az alkalmazásban, méltányos havi kerettel — ha érdekli, iratkozzon fel a fenti várólistára (az űrlap cseh nyelvű).</p>
       </details>
       <details>
-        <summary>Jaké jazyky umí?</summary>
-        <p>Primárně češtinu, na kterou je celá aplikace laděná. Lokální rozpoznávání řeči si ale poradí i s jinojazyčným hovorem — celkem podporuje 100 jazyků včetně slovenštiny. Podívejte se na <a href="#jazyky">kompletní seznam podporovaných jazyků</a>.</p>
+        <summary>Kell az AI-jegyzetekhez Claude vagy ChatGPT?</summary>
+        <p>Nem. A helyi leírás AI-asszisztens nélkül is teljes egészében működik. A készülő Pro verzióban az AI-jegyzetek közvetlenül az alkalmazásban lesznek — saját Claude- vagy ChatGPT-fiók nélkül. Aki használ AI-asszisztenst (Claude, ChatGPT és mások), már ma összekötheti a Zapisovačkával — az asszisztens így kéznél tartja a leiratokat (technikailag MCP-kapcsolat).</p>
       </details>
       <details>
-        <summary>Kde jsou má data?</summary>
-        <p>Jen na vašem disku. Nahrávky, přepisy i zápisky se ukládají do složky aplikace na vašem počítači a nikam se neodesílají. Podrobnosti najdete v <a href="privacy.html">zásadách ochrany soukromí</a>.</p>
+        <summary>Milyen nyelveket tud?</summary>
+        <p>Elsősorban a csehet, amelyre az egész alkalmazást hangoljuk. A helyi beszédfelismerés összesen 100 nyelvet támogat — magyarul is működik, de gyengébb minőségre számítson. Itt a <a href="#jazyky">támogatott nyelvek teljes listája</a>.</p>
       </details>
       <details>
-        <summary>Na jakých systémech běží?</summary>
-        <p>Zatím jen na Windows (10/11). Verze pro macOS zatím není.</p>
+        <summary>Hol vannak az adataim?</summary>
+        <p>Csak az Ön lemezén. A felvételek, leiratok és jegyzetek az alkalmazás mappájába kerülnek az Ön gépén, és sehová sem küldjük el őket. Részletek az <a href="/privacy.html">adatvédelmi tájékoztatóban</a> (csehül).</p>
       </details>
       <details>
-        <summary>Windows při instalaci zobrazil varování. Proč?</summary>
-        <p>Beta instalátor zatím není podepsaný certifikátem vydavatele, takže Windows SmartScreen může zobrazit upozornění na neznámou aplikaci. Instalátor stahujte jen z této stránky (zapisovacka.cz).</p>
+        <summary>Milyen rendszereken fut?</summary>
+        <p>Egyelőre csak Windowson (10/11). macOS-verzió egyelőre nincs.</p>
+      </details>
+      <details>
+        <summary>A Windows figyelmeztetést jelenített meg telepítéskor. Miért?</summary>
+        <p>A béta telepítő egyelőre nincs kiadói tanúsítvánnyal aláírva, ezért a Windows SmartScreen ismeretlen alkalmazásra figyelmeztethet. A telepítőt csak erről az oldalról (zapisovacka.cz) töltse le.</p>
       </details>
     </div>
   </div>
@@ -443,18 +419,18 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
   <div class="cta-band">
     <div class="wrap">
       <svg class="band-wave" viewBox="0 0 160 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M0 10.75L2 8.23L4 6.66L6 6.11L8 6.5L10 7.66L12 9.35L14 11.34L16 13.37L18 15.25L20 16.81L22 17.97L24 18.67L26 18.92L28 18.77L30 18.27L32 17.53L34 16.63L36 15.65L38 14.69L40 13.81L42 13.05L44 12.45L46 12.02L48 11.77L50 11.68L52 11.73L54 11.9L56 12.16L58 12.47L60 12.81L62 13.16L64 13.49L66 13.79L68 14.04L70 14.24L72 14.39L74 14.49L76 14.54L78 14.55L80 14.53L82 14.49L84 14.43L86 14.36L88 14.28L90 14.22L92 14.15L94 14.1L96 14.06L98 14.03L100 14.01L160 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <h2>Vyzkoušejte Zapisovačku</h2>
+      <h2>Próbálja ki a Zapisovačkát</h2>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/stahnout/">Získat betu</a>
-        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — pořadník</a>
+        <a class="btn btn-primary" href="/stahnout/">Béta letöltése</a>
+        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verzió AI-jegyzetekkel — várólista</a>
       </div>
-      <p class="cta-note">Pro verzi připravujeme, orientační cena ~200–250 Kč/měsíc.</p>
+      <p class="cta-note">A Pro verzió készül, irányár ~200–250 cseh korona havonta. A várólista űrlapja cseh nyelvű.</p>
     </div>
   </div>
   <div class="small-print">
     <hr class="rule">
-    <p>© 2026 Zapisovačka · <a href="privacy.html">Ochrana soukromí a kontakt</a> · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a><br>
-    Tento web nepoužívá cookies ani analytiku a nenačítá nic z cizích serverů.</p>
+    <p>© 2026 Zapisovačka · <a href="/privacy.html">Adatvédelem és kapcsolat</a> (csehül) · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a><br>
+    Ez a weboldal nem használ sütiket vagy analitikát, és semmit sem tölt be idegen szerverekről.</p>
   </div>
 </footer>
 

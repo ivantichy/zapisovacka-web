@@ -33,9 +33,13 @@ body{
 a{color:var(--accent)}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 .site-head{position:sticky;top:0;background:var(--veil);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.site-head .head-wrap{max-width:66rem;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;height:3.6rem}
+.site-head .head-wrap{max-width:66rem;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:3.6rem}
 .brand{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.06rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
 .brand svg{width:26px;height:26px;flex:none;color:var(--accent)}
+.lang-switch{display:flex;align-items:center;gap:.5rem;font-size:.8rem}
+.lang-switch a{color:var(--muted);text-decoration:none;font-weight:500}
+.lang-switch a:hover{color:var(--ink)}
+.lang-switch span{color:var(--line);user-select:none}
 .wrap{max-width:44rem;margin:0 auto;padding:3.2rem 1.25rem 4rem}
 .kicker{display:block;font-size:.78rem;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
 h1{font-size:clamp(1.8rem,4.5vw,2.4rem);letter-spacing:-.025em;line-height:1.12;font-weight:800;margin-bottom:.5rem}
@@ -59,13 +63,17 @@ footer a:hover{color:var(--ink)}
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Zapisovačka
     </a>
+    <nav class="lang-switch" aria-label="Jazyk webu"><a href="/" data-setlang="cs" hreflang="cs">CZ</a><span>·</span><a href="/sk/" data-setlang="sk" hreflang="sk" lang="sk">SK</a><span>·</span><a href="/ua/" data-setlang="ua" hreflang="uk" lang="uk">UA</a><span>·</span><a href="/hu/" data-setlang="hu" hreflang="hu" lang="hu">HU</a></nav>
   </div>
 </header>
 
 <main class="wrap">
 <span class="kicker">Zapisovačka</span>
 <h1>Zásady ochrany soukromí</h1>
-<p class="date">Účinnost od 10. července 2026 · Provozovatel: Roucho Beránčí s.r.o., IČO: 14363305, kontakt: <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a></p>
+<p class="date">Účinnost od 10. července 2026 · Provozovatel: Roucho Beránčí s.r.o., IČO: 14363305, kontakt: <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a><br>
+<span lang="sk">Právne záväzná je česká verzia týchto zásad — otázky radi zodpovieme na <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a>.</span><br>
+<span lang="uk">Юридично обов'язковою є чеська версія цих засад — питання надсилайте на <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a>.</span><br>
+<span lang="hu">E szabályzat jogilag kötelező érvényű változata a cseh nyelvű — kérdéseit az <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a> címen várjuk.</span></p>
 
 <p>Tyto zásady popisují, jak s daty nakládá (1) web zapisovacka.cz a (2) desktopová aplikace Zapisovačka, včetně jejího propojení s AI asistenty.</p>
 
@@ -114,6 +122,18 @@ footer a:hover{color:var(--ink)}
 <footer>
   <p>© 2026 Zapisovačka · <a href="/">zapisovacka.cz</a> · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a></p>
 </footer>
+
+<script>
+// Přepínač jazyků: explicitní volba se ukládá do localStorage („zapis_lang").
+(function(){
+  var ls = document.querySelectorAll("[data-setlang]");
+  for(var i = 0; i < ls.length; i++){
+    ls[i].addEventListener("click", function(){
+      try{ localStorage.setItem("zapis_lang", this.getAttribute("data-setlang")); }catch(e){}
+    });
+  }
+})();
+</script>
 
 </body>
 </html>

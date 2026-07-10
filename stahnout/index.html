@@ -42,9 +42,13 @@ body{
 a{color:var(--accent)}
 a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 .site-head{position:sticky;top:0;background:var(--veil);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.site-head .wrap{display:flex;align-items:center;height:3.6rem}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:3.6rem}
 .brand{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.06rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
 .brand svg{width:26px;height:26px;flex:none;color:var(--accent)}
+.lang-switch{display:flex;align-items:center;gap:.5rem;font-size:.8rem}
+.lang-switch a{color:var(--muted);text-decoration:none;font-weight:500}
+.lang-switch a:hover{color:var(--ink)}
+.lang-switch span{color:var(--line);user-select:none}
 main{flex:1}
 .panel{padding:4.5rem 0 3rem}
 .kicker{display:block;font-size:.78rem;font-weight:650;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
@@ -78,6 +82,7 @@ footer a:hover{color:var(--ink)}
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Zapisovačka
     </a>
+    <nav class="lang-switch" aria-label="Jazyk webu"><a href="/" data-setlang="cs" hreflang="cs">CZ</a><span>·</span><a href="/sk/" data-setlang="sk" hreflang="sk" lang="sk">SK</a><span>·</span><a href="/ua/" data-setlang="ua" hreflang="uk" lang="uk">UA</a><span>·</span><a href="/hu/" data-setlang="hu" hreflang="hu" lang="hu">HU</a></nav>
   </div>
 </header>
 
@@ -86,11 +91,11 @@ footer a:hover{color:var(--ink)}
 <section class="panel">
   <div class="wrap">
     <span class="kicker">Beta ke stažení</span>
-    <h1>Stahování začalo</h1>
-    <p class="lead">Stažení instalátoru se spustilo automaticky. Pokud ne, použijte tlačítko níže.</p>
+    <h1 id="dl-h">Stahování začalo</h1>
+    <p class="lead" id="dl-lead">Stažení instalátoru se spustilo automaticky. Pokud ne, použijte tlačítko níže.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/Zapisovacka-Setup.exe">Stáhnout instalátor znovu</a>
-      <a class="btn btn-secondary" href="/">Zpět na hlavní stránku</a>
+      <a class="btn btn-primary" id="dl-again" href="https://github.com/ivantichy/zapisovacka-web/releases/latest/download/Zapisovacka-Setup.exe">Stáhnout instalátor znovu</a>
+      <a class="btn btn-secondary" id="dl-back" href="/">Zpět na hlavní stránku</a>
     </div>
     <p class="cta-note">Windows 10/11 · instalátor ~97 MB · beta je zdarma · tento build má platnost do 9. 8. 2026, aplikace vás včas upozorní na novou verzi</p>
 
@@ -100,6 +105,7 @@ footer a:hover{color:var(--ink)}
       <li><strong>Windows SmartScreen může zobrazit varování</strong> „Neznámá aplikace" — beta instalátor zatím není podepsaný certifikátem vydavatele. Klikněte na <strong>Další informace → Přesto spustit</strong>.</li>
       <li><strong>Zapisovačka se po instalaci usadí v liště.</strong> Při prvním spuštění si stáhne model pro přepis a pak už nahrává a přepisuje sama.</li>
     </ol>
+    <p class="cta-note" lang="en">In English: run the downloaded Zapisovacka-Setup.exe; if Windows SmartScreen shows a warning, click "More info → Run anyway". The app's interface is currently in Czech.</p>
 
     <div class="hash">
       Kontrolní otisk instalátoru (SHA-256), verze v0.7.0:
@@ -116,6 +122,59 @@ footer a:hover{color:var(--ink)}
     <p>© 2026 Zapisovačka · <a href="/privacy.html">Ochrana soukromí a kontakt</a> · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a></p>
   </div>
 </footer>
+
+<script>
+// Krátké intro v jazyce návštěvníka (podle localStorage „zapis_lang", případně
+// navigator.languages). Kroky, SmartScreen poznámka i SHA-256 zůstávají česky —
+// tahle stránka je jediné místo s URL instalátoru a nijak se neduplikuje.
+(function(){
+  var t = {
+    sk: {h:"Sťahovanie sa začalo",
+         l:"Sťahovanie inštalátora sa spustilo automaticky. Ak nie, použite tlačidlo nižšie. Kroky nižšie sú po česky — aplikácia je zatiaľ v češtine.",
+         a:"Stiahnuť inštalátor znova", b:"Späť na hlavnú stránku", home:"/sk/"},
+    ua: {h:"Завантаження почалося",
+         l:"Завантаження інсталятора почалося автоматично. Якщо ні — скористайтеся кнопкою нижче. Кроки нижче — чеською; інтерфейс застосунку поки що чеською.",
+         a:"Завантажити інсталятор ще раз", b:"На головну сторінку", home:"/ua/"},
+    hu: {h:"A letöltés elindult",
+         l:"A telepítő letöltése automatikusan elindult. Ha nem, használja az alábbi gombot. Az alábbi lépések csehül olvashatók — az alkalmazás felülete egyelőre cseh nyelvű.",
+         a:"Telepítő letöltése újra", b:"Vissza a főoldalra", home:"/hu/"}
+  };
+  var langAttr = {sk:"sk", ua:"uk", hu:"hu"};
+  var pref = null;
+  try{ pref = localStorage.getItem("zapis_lang"); }catch(e){}
+  if(!t[pref]){
+    if(pref === "cs"){ pref = null; }
+    else{
+      pref = null;
+      var langs = navigator.languages || [navigator.language || ""];
+      for(var i = 0; i < langs.length && !pref; i++){
+        var l = String(langs[i]).slice(0,2).toLowerCase();
+        if(l === "cs") break;
+        if(l === "sk") pref = "sk";
+        else if(l === "uk") pref = "ua";
+        else if(l === "hu") pref = "hu";
+      }
+    }
+  }
+  if(pref && t[pref]){
+    var v = t[pref];
+    var ids = {"dl-h":v.h, "dl-lead":v.l, "dl-again":v.a, "dl-back":v.b};
+    for(var id in ids){
+      var el = document.getElementById(id);
+      if(el){ el.textContent = ids[id]; el.setAttribute("lang", langAttr[pref]); }
+    }
+    var back = document.getElementById("dl-back");
+    if(back) back.setAttribute("href", v.home);
+  }
+  // Přepínač jazyků: explicitní volba se ukládá do localStorage.
+  var ls = document.querySelectorAll("[data-setlang]");
+  for(var j = 0; j < ls.length; j++){
+    ls[j].addEventListener("click", function(){
+      try{ localStorage.setItem("zapis_lang", this.getAttribute("data-setlang")); }catch(e){}
+    });
+  }
+})();
+</script>
 
 </body>
 </html>

@@ -1,50 +1,22 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="sk">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Zapisovačka — důvěrný zápis z meetingů. Bez bota, bez cloudu.</title>
-<meta name="description" content="Zapisovačka nahrává a přepisuje vaše meetingy česky, přímo na vašem PC. Žádný bot v hovoru, žádný cloud — audio i přepisy zůstávají jen u vás. Zdarma v betě.">
-<meta property="og:title" content="Zapisovačka — důvěrný zápis z meetingů">
-<meta property="og:description" content="Český přepis meetingů běží lokálně na vašem PC. Bez bota v hovoru, bez cloudu — vaše meetingy zůstávají u vás.">
+<title>Zapisovačka — dôverný zápis z meetingov. Bez bota, bez cloudu.</title>
+<meta name="description" content="Zapisovačka nahráva a prepisuje vaše meetingy priamo na vašom PC — po slovensky aj po česky. Žiadny bot v hovore, žiadny cloud — audio aj prepisy zostávajú len u vás. Zadarmo v bete.">
+<meta property="og:title" content="Zapisovačka — dôverný zápis z meetingov">
+<meta property="og:description" content="Prepis meetingov beží lokálne na vašom PC — funguje aj po slovensky. Bez bota v hovore, bez cloudu — vaše meetingy zostávajú u vás.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://zapisovacka.cz/">
-<meta property="og:locale" content="cs_CZ">
-<link rel="canonical" href="https://zapisovacka.cz/">
+<meta property="og:url" content="https://zapisovacka.cz/sk/">
+<meta property="og:locale" content="sk_SK">
+<link rel="canonical" href="https://zapisovacka.cz/sk/">
 <link rel="alternate" hreflang="cs" href="https://zapisovacka.cz/">
 <link rel="alternate" hreflang="sk" href="https://zapisovacka.cz/sk/">
 <link rel="alternate" hreflang="uk" href="https://zapisovacka.cz/ua/">
 <link rel="alternate" hreflang="hu" href="https://zapisovacka.cz/hu/">
-<link rel="alternate" hreflang="x-default" href="https://zapisovacka.cz/">
-<script>
-// Jazyková autodetekce — POUZE na kořenové stránce (mutace nikdy nepřesměrovávají,
-// takže nehrozí smyčka). Uložená volba v localStorage („zapis_lang") má přednost;
-// bez ní se jednou rozhodne podle navigator.languages a výsledek se uloží.
-// Žádné cookies.
-(function(){
-  var PATH = {sk:"/sk/", ua:"/ua/", hu:"/hu/"};
-  var pref = null;
-  try{ pref = localStorage.getItem("zapis_lang"); }catch(e){}
-  if(pref === "cs") return;
-  if(!PATH[pref]){
-    pref = null;
-    var langs = navigator.languages || [navigator.language || ""];
-    for(var i = 0; i < langs.length && !pref; i++){
-      var l = String(langs[i]).slice(0,2).toLowerCase();
-      if(l === "cs") pref = "cs";
-      else if(l === "sk") pref = "sk";
-      else if(l === "uk") pref = "ua";
-      else if(l === "hu") pref = "hu";
-    }
-    if(!pref) return;
-    try{ localStorage.setItem("zapis_lang", pref); }catch(e){}
-    if(pref === "cs") return;
-  }
-  location.replace(PATH[pref]);
-})();
-</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="x-default" href="https://zapisovacka.cz/"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E7566'/%3E%3Cpath d='M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5' fill='none' stroke='%23FAF9F4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{
   color-scheme:light dark;
@@ -190,17 +162,17 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/">
+    <a class="brand" href="/sk/">
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M7 32C10 13 15 13 18 32C21 48 25 48 28 32C30.5 24 33.5 24 36 32C38 36.5 40 36.5 42 32L53 32C55.5 32 56.5 30.5 57 27.5" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Zapisovačka
     </a>
-    <nav class="site-nav" aria-label="Hlavní navigace">
-      <a class="nav-link" href="#jak">Jak to funguje</a>
-      <a class="nav-link" href="#prokoho">Pro koho</a>
-      <a class="nav-link" href="#lokalne">Proč lokálně</a>
-      <a class="nav-link" href="#faq">Časté dotazy</a>
-      <nav class="lang-switch" aria-label="Jazyk webu"><a href="/" data-setlang="cs" hreflang="cs" aria-current="page">CZ</a><span>·</span><a href="/sk/" data-setlang="sk" hreflang="sk" lang="sk">SK</a><span>·</span><a href="/ua/" data-setlang="ua" hreflang="uk" lang="uk">UA</a><span>·</span><a href="/hu/" data-setlang="hu" hreflang="hu" lang="hu">HU</a></nav>
-      <a class="btn btn-primary btn-small" href="/stahnout/">Získat betu</a>
+    <nav class="site-nav" aria-label="Hlavná navigácia">
+      <a class="nav-link" href="#jak">Ako to funguje</a>
+      <a class="nav-link" href="#prokoho">Pre koho</a>
+      <a class="nav-link" href="#lokalne">Prečo lokálne</a>
+      <a class="nav-link" href="#faq">Časté otázky</a>
+      <nav class="lang-switch" aria-label="Jazyk webu"><a href="/" data-setlang="cs" hreflang="cs" lang="cs">CZ</a><span>·</span><a href="/sk/" data-setlang="sk" hreflang="sk" aria-current="page">SK</a><span>·</span><a href="/ua/" data-setlang="ua" hreflang="uk" lang="uk">UA</a><span>·</span><a href="/hu/" data-setlang="hu" hreflang="hu" lang="hu">HU</a></nav>
+      <a class="btn btn-primary btn-small" href="/stahnout/">Získať betu</a>
     </nav>
   </div>
 </header>
@@ -210,15 +182,15 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 <section class="hero" aria-label="Úvod">
   <div class="wrap">
     <div class="hero-inner">
-      <p class="beta">Beta — zdarma ke stažení</p>
-      <h1><em>Důvěrný zápis</em> z&nbsp;meetingů.<br>Bez bota, bez cloudu.</h1>
-      <p class="tagline">Zapisovačka nahrává a přepisuje vaše meetingy česky — přímo na vašem počítači. Hotový přepis máte chvíli po hovoru a žádná data neopouštějí váš disk.</p>
-      <p class="sub">Funguje s Microsoft Teams, Google Meet i Zoomem, aniž by se do hovoru připojoval jakýkoli bot. Poslouží i místo diktafonu na osobním jednání. Zápis a úkoly z přepisu udělá AI — připravujeme AI zápisky přímo v aplikaci a už dnes Zapisovačku propojíte s AI asistenty (Claude, ChatGPT a další).</p>
+      <p class="beta">Beta — zadarmo na stiahnutie</p>
+      <h1><em>Dôverný zápis</em> z&nbsp;meetingov.<br>Bez bota, bez cloudu.</h1>
+      <p class="tagline">Zapisovačka nahráva a prepisuje vaše meetingy — po slovensky aj po česky — priamo na vašom počítači. Hotový prepis máte chvíľu po hovore a žiadne dáta neopúšťajú váš disk.</p>
+      <p class="sub">Funguje s Microsoft Teams, Google Meet aj Zoomom bez toho, aby sa do hovoru pripájal akýkoľvek bot. Poslúži aj namiesto diktafónu na osobnom rokovaní. Zápis a úlohy z prepisu urobí AI — AI zápisky priamo v aplikácii pripravujeme a už dnes Zapisovačku prepojíte s AI asistentmi (Claude, ChatGPT a ďalšími). Aplikácia je zatiaľ v češtine — prepis funguje aj po slovensky.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/stahnout/">Získat betu</a>
-        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — pořadník</a>
+        <a class="btn btn-primary" href="/stahnout/">Získať betu</a>
+        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verzia s AI zápiskami — poradovník</a>
       </div>
-      <p class="cta-note">Windows 10/11 · instalátor ~110 MB · Pro verzi připravujeme, cena ~200–250 Kč/měsíc</p>
+      <p class="cta-note">Windows 10/11 · inštalátor ~110 MB · Pro verziu pripravujeme, cena ~200–250 Kč/mesiac · poradovník je formulár v češtine</p>
     </div>
   </div>
   <svg class="hero-wave" viewBox="0 0 1200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation">
@@ -229,20 +201,20 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section class="alt" id="jak" aria-labelledby="jak-h">
   <div class="wrap">
-    <span class="kicker">Jak to funguje</span>
-    <h2 id="jak-h">Tři kroky od hovoru k&nbsp;přepisu</h2>
+    <span class="kicker">Ako to funguje</span>
+    <h2 id="jak-h">Tri kroky od hovoru k&nbsp;prepisu</h2>
     <ol class="steps grid grid-3">
       <li>
-        <h3>Nainstalujte</h3>
-        <p>Stáhněte instalátor a spusťte. Zapisovačka si při prvním startu stáhne model pro přepis a pak běží tiše v liště.</p>
+        <h3>Nainštalujte</h3>
+        <p>Stiahnite inštalátor a spustite ho. Zapisovačka si pri prvom štarte stiahne model na prepis a potom beží ticho v lište.</p>
       </li>
       <li>
-        <h3>Zapisovačka pozná meeting a nahrává</h3>
-        <p>Podle kalendáře a zvuku pozná, že začal hovor, a začne nahrávat. Do hovoru se nic nepřipojuje — protistrana žádného bota nevidí.</p>
+        <h3>Zapisovačka rozpozná meeting a nahráva</h3>
+        <p>Podľa kalendára a zvuku rozpozná, že sa začal hovor, a začne nahrávať. Do hovoru sa nič nepripája — protistrana žiadneho bota nevidí.</p>
       </li>
       <li>
-        <h3>Přepis máte lokálně během chvíle</h3>
-        <p>Po skončení hovoru se na vašem PC dokončí přesnější přepis. Zápis a úkoly z něj udělá AI — v AI asistentovi (Claude, ChatGPT a další), se kterým Zapisovačku propojíte; v Pro verzi připravujeme AI zápisky přímo v aplikaci.</p>
+        <h3>Prepis máte lokálne za chvíľu</h3>
+        <p>Po skončení hovoru sa na vašom PC dokončí presnejší prepis. Zápis a úlohy z neho urobí AI — v AI asistentovi (Claude, ChatGPT a ďalší), s ktorým Zapisovačku prepojíte; v Pro verzii pripravujeme AI zápisky priamo v aplikácii.</p>
       </li>
     </ol>
   </div>
@@ -250,28 +222,28 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section id="prokoho" aria-labelledby="prokoho-h">
   <div class="wrap">
-    <span class="kicker">Pro koho</span>
-    <h2 id="prokoho-h">Pro každého, kdo vede důvěrné schůzky</h2>
+    <span class="kicker">Pre koho</span>
+    <h2 id="prokoho-h">Pre každého, kto vedie dôverné stretnutia</h2>
     <ul class="grid grid-2up grid-4" style="list-style:none">
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>Konzultanti</h3>
-        <p>Zápisy z klientských hovorů bez toho, aby nahrávka klientových dat skončila na cizím serveru.</p>
+        <p>Zápisy z klientskych hovorov bez toho, aby nahrávka klientových dát skončila na cudzom serveri.</p>
       </li>
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>Advokáti</h3>
-        <p>Záznam jednání s klientem podléhá důvěrnosti. U Zapisovačky neopustí váš počítač.</p>
+        <p>Záznam rokovania s klientom podlieha dôvernosti. So Zapisovačkou neopustí váš počítač.</p>
       </li>
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>HR</h3>
-        <p>Pohovory a citlivé rozhovory se zaměstnanci — přepis bez třetí strany, která by data viděla.</p>
+        <p>Pohovory a citlivé rozhovory so zamestnancami — prepis bez tretej strany, ktorá by dáta videla.</p>
       </li>
       <li class="card">
         <svg class="mini-wave" viewBox="0 0 30 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M1.5 5.5C3 1.5 5 1.5 6.5 5.5C8 9.5 10 9.5 11.5 5.5C12.7 2.5 14 2.5 15.2 5.5L28 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>Státní správa</h3>
-        <p>Jednání, která nesmí do veřejného cloudu. Vše se zpracovává na vašem zařízení.</p>
+        <h3>Štátna správa</h3>
+        <p>Rokovania, ktoré nesmú do verejného cloudu. Všetko sa spracúva na vašom zariadení.</p>
       </li>
     </ul>
   </div>
@@ -279,126 +251,126 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section class="alt" id="lokalne" aria-labelledby="lokalne-h">
   <div class="wrap">
-    <span class="kicker">Proč lokálně</span>
-    <h2 id="lokalne-h">Soukromí není funkce navíc. Je to celý princip.</h2>
+    <span class="kicker">Prečo lokálne</span>
+    <h2 id="lokalne-h">Súkromie nie je funkcia navyše. Je to celý princíp.</h2>
     <div class="reasons">
       <div class="reason">
-        <h3>Bez bota v hovoru</h3>
-        <p>Cloudové zapisovací nástroje obvykle posílají do hovoru bota, kterého všichni vidí. Zapisovačka nahrává zvuk vašeho počítače — v hovoru není nikdo navíc a nikdo nemusí nic schvalovat v cizí aplikaci.</p>
+        <h3>Bez bota v hovore</h3>
+        <p>Cloudové zapisovacie nástroje zvyčajne posielajú do hovoru bota, ktorého všetci vidia. Zapisovačka nahráva zvuk vášho počítača — v hovore nie je nikto navyše a nikto nemusí nič schvaľovať v cudzej aplikácii.</p>
       </div>
       <div class="reason">
-        <h3>Data zůstávají u vás</h3>
-        <p>Cloudové nástroje ukládají nahrávky i přepisy na svých serverech. Zapisovačka všechno — audio, přepis i zápisky — ukládá jen na váš disk. Smažete složku, data neexistují.</p>
+        <h3>Dáta zostávajú u vás</h3>
+        <p>Cloudové nástroje ukladajú nahrávky aj prepisy na svojich serveroch. Zapisovačka všetko — audio, prepis aj zápisky — ukladá len na váš disk. Zmažete priečinok, dáta neexistujú.</p>
       </div>
       <div class="reason">
-        <h3>Čeština na prvním místě</h3>
-        <p>Zapisovačka je stavěná pro české meetingy. AI funkce velkých nástrojů češtinu často opomíjejí — např. vícejazyčné AI funkce Microsoft Teams (inteligentní rekapitulace) češtinu k polovině roku 2026 nepodporují.</p>
+        <h3>Ladené pre češtinu, rozumie slovenčine</h3>
+        <p>Zapisovačka je stavaná pre české meetingy — najviac ladíme češtinu a prepis si veľmi dobre poradí aj so slovenčinou. AI funkcie veľkých nástrojov malé jazyky často obchádzajú — napr. viacjazyčné AI funkcie Microsoft Teams (inteligentná rekapitulácia) k polovici roka 2026 češtinu nepodporujú.</p>
       </div>
     </div>
     <details class="langs" id="jazyky">
-      <summary>Kompletní seznam podporovaných jazyků přepisu (100)</summary>
-      <p class="lang-note">Kvalita přepisu se mezi jazyky liší — nejlépe ladíme češtinu, u menších jazyků počítejte se slabšími výsledky.</p>
+      <summary>Kompletný zoznam podporovaných jazykov prepisu (100)</summary>
+      <p class="lang-note">Kvalita prepisu sa medzi jazykmi líši — najlepšie ladíme češtinu a prepis si veľmi dobre poradí aj so slovenčinou; pri menších jazykoch počítajte so slabšími výsledkami.</p>
       <ul class="lang-list">
+        <li class="lang-hl">slovenčina</li>
         <li class="lang-hl">čeština</li>
-        <li class="lang-hl">slovenština</li>
-        <li>afrikánština</li>
-        <li>albánština</li>
-        <li>amharština</li>
+        <li>afrikánčina</li>
+        <li>albánčina</li>
+        <li>amharčina</li>
         <li>angličtina</li>
-        <li>arabština</li>
-        <li>arménština</li>
-        <li>ásámština</li>
-        <li>ázerbájdžánština</li>
-        <li>barmština</li>
+        <li>arabčina</li>
+        <li>arménčina</li>
+        <li>ásámčina</li>
+        <li>azerbajdžančina</li>
+        <li>barmčina</li>
         <li>baskičtina</li>
-        <li>baškirština</li>
-        <li>běloruština</li>
-        <li>bengálština</li>
-        <li>bosenština</li>
-        <li>bretonština</li>
-        <li>bulharština</li>
+        <li>baškirčina</li>
+        <li>bengálčina</li>
+        <li>bieloruština</li>
+        <li>bosniačtina</li>
+        <li>bretónčina</li>
+        <li>bulharčina</li>
         <li>čínština</li>
-        <li>dánština</li>
-        <li>estonština</li>
-        <li>faerština</li>
-        <li>finština</li>
-        <li>francouzština</li>
-        <li>galicijština</li>
-        <li>gruzínština</li>
-        <li>gudžarátština</li>
-        <li>haitská kreolština</li>
+        <li>dánčina</li>
+        <li>estónčina</li>
+        <li>faerčina</li>
+        <li>fínčina</li>
+        <li>francúzština</li>
+        <li>galícijčina</li>
+        <li>gréčtina</li>
+        <li>gruzínčina</li>
+        <li>gudžarátčina</li>
+        <li>haitská kreolčina</li>
         <li>hauština</li>
-        <li>havajština</li>
-        <li>hebrejština</li>
-        <li>hindština</li>
-        <li>chorvatština</li>
-        <li>indonéština</li>
-        <li>islandština</li>
-        <li>italština</li>
-        <li>japonština</li>
-        <li>javánština</li>
+        <li>havajčina</li>
+        <li>hebrejčina</li>
+        <li>hindčina</li>
+        <li>holandčina</li>
+        <li>chorvátčina</li>
+        <li>indonézština</li>
+        <li>islandčina</li>
+        <li>japončina</li>
+        <li>jávčina</li>
         <li>jidiš</li>
-        <li>jorubština</li>
-        <li>kannadština</li>
-        <li>kantonština</li>
-        <li>katalánština</li>
+        <li>jorubčina</li>
+        <li>kannadčina</li>
+        <li>kantončina</li>
+        <li>katalánčina</li>
         <li>kazaština</li>
-        <li>khmerština</li>
-        <li>korejština</li>
+        <li>khmérčina</li>
+        <li>kórejčina</li>
         <li>laoština</li>
-        <li>latina</li>
-        <li>lingalština</li>
-        <li>litevština</li>
+        <li>latinčina</li>
+        <li>lingalčina</li>
+        <li>litovčina</li>
         <li>lotyština</li>
-        <li>lucemburština</li>
-        <li>maďarština</li>
-        <li>makedonština</li>
-        <li>malajálamština</li>
-        <li>malajština</li>
+        <li>luxemburčina</li>
+        <li>macedónčina</li>
+        <li>maďarčina</li>
+        <li>malajálamčina</li>
+        <li>malajčina</li>
         <li>malgaština</li>
-        <li>maltština</li>
-        <li>maorština</li>
-        <li>maráthština</li>
-        <li>mongolština</li>
-        <li>němčina</li>
-        <li>nepálština</li>
-        <li>nizozemština</li>
-        <li>norština</li>
-        <li>norština (nynorsk)</li>
-        <li>okcitánština</li>
-        <li>paňdžábština</li>
-        <li>paštština</li>
-        <li>perština</li>
-        <li>polština</li>
-        <li>portugalština</li>
-        <li>rumunština</li>
+        <li>maltčina</li>
+        <li>maorijčina</li>
+        <li>maráthčina</li>
+        <li>mongolčina</li>
+        <li>nemčina</li>
+        <li>nepálčina</li>
+        <li>nórčina</li>
+        <li>nórčina (nynorsk)</li>
+        <li>okcitánčina</li>
+        <li>pandžábčina</li>
+        <li>paštčina</li>
+        <li>perzština</li>
+        <li>poľština</li>
+        <li>portugalčina</li>
+        <li>rumunčina</li>
         <li>ruština</li>
-        <li>řečtina</li>
-        <li>sanskrt</li>
-        <li>sindhština</li>
-        <li>sinhálština</li>
-        <li>slovinština</li>
-        <li>somálština</li>
-        <li>srbština</li>
-        <li>sundánština</li>
-        <li>svahilština</li>
-        <li>šonština</li>
-        <li>španělština</li>
-        <li>švédština</li>
-        <li>tádžičtina</li>
-        <li>tagalština</li>
-        <li>tamilština</li>
-        <li>tatarština</li>
-        <li>telugština</li>
-        <li>thajština</li>
-        <li>tibetština</li>
+        <li>sanskrit</li>
+        <li>sindhčina</li>
+        <li>sinhalčina</li>
+        <li>slovinčina</li>
+        <li>somálčina</li>
+        <li>srbčina</li>
+        <li>sundčina</li>
+        <li>svahilčina</li>
+        <li>šončina</li>
+        <li>španielčina</li>
+        <li>švédčina</li>
+        <li>tadžičtina</li>
+        <li>tagalčina</li>
+        <li>taliančina</li>
+        <li>tamilčina</li>
+        <li>tatárčina</li>
+        <li>telugčina</li>
+        <li>thajčina</li>
+        <li>tibetčina</li>
         <li>turečtina</li>
-        <li>turkmenština</li>
-        <li>ukrajinština</li>
-        <li>urdština</li>
+        <li>turkménčina</li>
+        <li>ukrajinčina</li>
+        <li>urdčina</li>
         <li>uzbečtina</li>
-        <li>velština</li>
-        <li>vietnamština</li>
+        <li>vietnamčina</li>
+        <li>waleština</li>
       </ul>
     </details>
   </div>
@@ -406,32 +378,36 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
 
 <section id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <span class="kicker">Časté dotazy</span>
-    <h2 id="faq-h">Na co se ptáte nejčastěji</h2>
+    <span class="kicker">Časté otázky</span>
+    <h2 id="faq-h">Na čo sa pýtate najčastejšie</h2>
     <div class="faq">
       <details>
         <summary>Je to zadarmo?</summary>
-        <p>Beta verze je zdarma, včetně neomezeného lokálního českého přepisu. Do free verze připravujeme i 1 AI zápis měsíčně zdarma na vyzkoušení. Placená Pro verze (orientačně ~200–250 Kč/měsíc) přidá AI zápisky přímo v aplikaci s férovým měsíčním limitem — pokud vás zajímá, zapište se do pořadníku výše.</p>
+        <p>Beta verzia je zadarmo vrátane neobmedzeného lokálneho prepisu. Do free verzie pripravujeme aj 1 AI zápis mesačne zadarmo na vyskúšanie. Platená Pro verzia (orientačne ~200–250 Kč/mesiac) pridá AI zápisky priamo v aplikácii s férovým mesačným limitom — ak vás zaujíma, zapíšte sa do poradovníka vyššie (formulár je v češtine).</p>
       </details>
       <details>
-        <summary>Potřebuji k AI zápiskům Claude nebo ChatGPT?</summary>
-        <p>Ne. Lokální přepis funguje úplně bez AI asistenta. V připravované Pro verzi budou AI zápisky přímo v aplikaci — bez vlastního účtu u Claude či ChatGPT. Kdo AI asistenta (Claude, ChatGPT a další) používá, může si ho už dnes se Zapisovačkou propojit — asistent pak má vaše přepisy po ruce (technicky jde o propojení přes MCP).</p>
+        <summary>V akom jazyku je aplikácia?</summary>
+        <p>Rozhranie aplikácie je zatiaľ v češtine. Samotný prepis hovorov pritom funguje aj po slovensky — so slovenskými meetingmi si Zapisovačka poradí veľmi dobre.</p>
       </details>
       <details>
-        <summary>Jaké jazyky umí?</summary>
-        <p>Primárně češtinu, na kterou je celá aplikace laděná. Lokální rozpoznávání řeči si ale poradí i s jinojazyčným hovorem — celkem podporuje 100 jazyků včetně slovenštiny. Podívejte se na <a href="#jazyky">kompletní seznam podporovaných jazyků</a>.</p>
+        <summary>Potrebujem k AI zápiskom Claude alebo ChatGPT?</summary>
+        <p>Nie. Lokálny prepis funguje úplne bez AI asistenta. V pripravovanej Pro verzii budú AI zápisky priamo v aplikácii — bez vlastného účtu u Claude či ChatGPT. Kto AI asistenta (Claude, ChatGPT a ďalších) používa, môže si ho už dnes so Zapisovačkou prepojiť — asistent má potom vaše prepisy poruke (technicky ide o prepojenie cez MCP).</p>
       </details>
       <details>
-        <summary>Kde jsou má data?</summary>
-        <p>Jen na vašem disku. Nahrávky, přepisy i zápisky se ukládají do složky aplikace na vašem počítači a nikam se neodesílají. Podrobnosti najdete v <a href="privacy.html">zásadách ochrany soukromí</a>.</p>
+        <summary>Aké jazyky ovláda?</summary>
+        <p>Najlepšie češtinu, na ktorú je celá aplikácia ladená, a veľmi dobre si poradí aj so slovenčinou. Lokálne rozpoznávanie reči zvládne celkovo 100 jazykov. Pozrite si <a href="#jazyky">kompletný zoznam podporovaných jazykov</a>.</p>
       </details>
       <details>
-        <summary>Na jakých systémech běží?</summary>
-        <p>Zatím jen na Windows (10/11). Verze pro macOS zatím není.</p>
+        <summary>Kde sú moje dáta?</summary>
+        <p>Len na vašom disku. Nahrávky, prepisy aj zápisky sa ukladajú do priečinka aplikácie na vašom počítači a nikam sa neodosielajú. Podrobnosti nájdete v <a href="/privacy.html">zásadách ochrany súkromia</a> (po česky).</p>
       </details>
       <details>
-        <summary>Windows při instalaci zobrazil varování. Proč?</summary>
-        <p>Beta instalátor zatím není podepsaný certifikátem vydavatele, takže Windows SmartScreen může zobrazit upozornění na neznámou aplikaci. Instalátor stahujte jen z této stránky (zapisovacka.cz).</p>
+        <summary>Na akých systémoch beží?</summary>
+        <p>Zatiaľ len na Windows (10/11). Verzia pre macOS zatiaľ nie je.</p>
+      </details>
+      <details>
+        <summary>Windows pri inštalácii zobrazil varovanie. Prečo?</summary>
+        <p>Beta inštalátor zatiaľ nie je podpísaný certifikátom vydavateľa, takže Windows SmartScreen môže zobraziť upozornenie na neznámu aplikáciu. Inštalátor sťahujte len z tejto stránky (zapisovacka.cz).</p>
       </details>
     </div>
   </div>
@@ -443,18 +419,18 @@ h2{font-size:clamp(1.65rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15;
   <div class="cta-band">
     <div class="wrap">
       <svg class="band-wave" viewBox="0 0 160 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M0 10.75L2 8.23L4 6.66L6 6.11L8 6.5L10 7.66L12 9.35L14 11.34L16 13.37L18 15.25L20 16.81L22 17.97L24 18.67L26 18.92L28 18.77L30 18.27L32 17.53L34 16.63L36 15.65L38 14.69L40 13.81L42 13.05L44 12.45L46 12.02L48 11.77L50 11.68L52 11.73L54 11.9L56 12.16L58 12.47L60 12.81L62 13.16L64 13.49L66 13.79L68 14.04L70 14.24L72 14.39L74 14.49L76 14.54L78 14.55L80 14.53L82 14.49L84 14.43L86 14.36L88 14.28L90 14.22L92 14.15L94 14.1L96 14.06L98 14.03L100 14.01L160 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <h2>Vyzkoušejte Zapisovačku</h2>
+      <h2>Vyskúšajte Zapisovačku</h2>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/stahnout/">Získat betu</a>
-        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verze s AI zápisky — pořadník</a>
+        <a class="btn btn-primary" href="/stahnout/">Získať betu</a>
+        <a class="btn btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScdc-Mrcv2ydYbDCE3onmcvCpYxcr2I-MQUBWtcawl2nhpb1g/viewform" target="_blank" rel="noopener">Pro verzia s AI zápiskami — poradovník</a>
       </div>
-      <p class="cta-note">Pro verzi připravujeme, orientační cena ~200–250 Kč/měsíc.</p>
+      <p class="cta-note">Pro verziu pripravujeme, orientačná cena ~200–250 Kč/mesiac. Poradovník je formulár v češtine.</p>
     </div>
   </div>
   <div class="small-print">
     <hr class="rule">
-    <p>© 2026 Zapisovačka · <a href="privacy.html">Ochrana soukromí a kontakt</a> · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a><br>
-    Tento web nepoužívá cookies ani analytiku a nenačítá nic z cizích serverů.</p>
+    <p>© 2026 Zapisovačka · <a href="/privacy.html">Ochrana súkromia a kontakt</a> (po česky) · <a href="mailto:info@zapisovacka.cz">info@zapisovacka.cz</a><br>
+    Tento web nepoužíva cookies ani analytiku a nenačítava nič z cudzích serverov.</p>
   </div>
 </footer>
 
